@@ -405,7 +405,7 @@ svg text {
 	border-radius: 3px;
 }
 #srcbox-button {
-	background: transparent url('../img/src.png') no-repeat scroll center center;
+	background: transparent url('../images/src.png') no-repeat scroll center center;
 	width: 25px;
 	height: 25px;
 	position: absolute;
@@ -472,31 +472,31 @@ svg text {
 	background-position: 0 -40px!important;
 }
 .social-bookmarks li.facebook a {
-	background: url(/img/icons/facebook.png) no-repeat 0 0;
+	background: url(/images/icons/facebook.png) no-repeat 0 0;
 }
 .social-bookmarks li.facebook a:hover {
 	background-color: #3b5998;
 }
 .social-bookmarks li.github a {
-	background: url(/img/icons/github.png) no-repeat 0 0;
+	background: url(/images/icons/github.png) no-repeat 0 0;
 }
 .social-bookmarks li.github a:hover {
 	background-color: #7292a2;
 }
 .social-bookmarks li.linkedin a {
-	background: url(/img/icons/linkedin.png) no-repeat 0 0;
+	background: url(/images/icons/linkedin.png) no-repeat 0 0;
 }
 .social-bookmarks li.linkedin a:hover {
 	background-color: #007BB6;
 }
 .social-bookmarks li.twitter a {
-	background: url(/img/icons/twitter.png) no-repeat 0 0;
+	background: url(/images/icons/twitter.png) no-repeat 0 0;
 }
 .social-bookmarks li.twitter a:hover {
 	background-color: #48c4d2;
 }
 .social-bookmarks li.mailto a {
-	background: url(/img/icons/mailto.png) no-repeat 0 0;
+	background: url(/images/icons/mailto.png) no-repeat 0 0;
 }
 .social-bookmarks li.mailto a:hover {
 	background-color: #444444;
