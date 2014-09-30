@@ -6,7 +6,7 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	height = 480 - margin.top - margin.bottom;
 	
 // colors for the chart and map
-var c = ["#ce98ce", "#dc9e9e", "#89a3ca", "#94d394"]
+var c = ["#9370db", "#db7093", "#89a3ca", "#94d394"]
 	
 // set the color scale
 var color = d3.scale.ordinal()
