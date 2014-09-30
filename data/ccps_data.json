@@ -1,0 +1,62 @@
+{"schools":[{
+	"state_id": 81002,
+	"info": {
+		"school_name": "HENRY E. LACKEY HIGH SCHOOL",
+		"address": "3000 CHICAMUXEN RD",
+		"city": "INDIAN HEAD",
+		"zip": "20640",
+		"lat": 38.5794444,
+		"lon": -77.1276389
+	}
+}{
+	"state_id": 80106,
+	"info": {
+		"school_name": "LA PLATA HIGH SCHOOL",
+		"address": "6035 RADIO STATION RD",
+		"city": "LA PLATA",
+		"zip": "20646",
+		"lat": 38.5462317,
+		"lon": -76.9502506
+	}
+}{
+	"state_id": 80108,
+	"info": {
+		"school_name": "MAURICE J. MCDONOUGH HIGH SCHOOL",
+		"address": "7165 MARSHALL CORNER RD",
+		"city": "POMFRET",
+		"zip": "20675",
+		"lat": 38.5557,
+		"lon": -77.035146
+	}
+}{
+	"state_id": 80623,
+	"info": {
+		"school_name": "NORTH POINT HIGH SCHOOL",
+		"address": "2500 DAVIS RD",
+		"city": "WALDORF",
+		"zip": "20603",
+		"lat": 38.641421,
+		"lon": -76.977075
+	}
+}{
+	"state_id": 80605,
+	"info": {
+		"school_name": "THOMAS STONE HIGH SCHOOL",
+		"address": "3785 LEONARDTOWN RD",
+		"city": "WALDORF",
+		"zip": "20601",
+		"lat": 38.6148411,
+		"lon": -76.8869156
+	}
+}{
+	"state_id": 80619,
+	"info": {
+		"school_name": "WESTLAKE HIGH SCHOOL",
+		"address": "3300 MIDDLETOWN RD",
+		"city": "WALDORF",
+		"zip": "20603",
+		"lat": 38.6237294,
+		"lon": -76.9669182
+	}
+}
+]}

@@ -1,0 +1,557 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    color: #6d7988;
+}
+.content{
+	margin-bottom: 60px;
+	text-align: left;
+}
+.footer {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #000;
+}
+
+/* TYPE FAMILIES */
+.rob { 
+	font-family: 'Roboto Slab', sans-serif;
+}
+.ral { 
+	font-family: 'Raleway', sans-serif;
+}
+.osc { 
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+/* CASE */
+.upper {
+	text-transform: uppercase
+}
+.lower {
+	text-transform: lowercase
+}
+.capitalize {
+	text-transform: capitalize
+}
+
+/* COLORS */
+.red {
+	color: #a00
+}
+.gray {
+	color: #777
+}
+.black {
+	color: #000
+}
+
+/* WEIGHTS */
+.lighter {
+	font-weight: 300
+}
+.normal {
+	font-weight: normal
+}
+.heavier {
+	font-weight: 700
+}
+.fat {
+	font-weight: 900
+}
+
+/* For the navigation header */
+.navbar {
+    z-index: 4000;
+    padding-right: 50px;
+    padding-left: 50px;
+    border: none;
+    background-color: #000;
+	position: relative;
+	left: 0;
+	right: 0;
+	/* background-color: #554943 */
+    color: #fff;
+}
+.navbar ul, .navbar li {
+    margin: 0px;
+    padding: 0px;
+}
+.navbar p {
+	font-size: 18px;
+}
+.navbar a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+}
+.navbar a.navbar-link, .share-button a {
+    color:#6d7988;
+}
+.navbar a.navbar-link:hover {
+    color:#C4C4C4;
+}
+.navbar .navbar-text {
+    float: left;
+    margin-right: 15px;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+.navbar-text .about-link{
+    margin-top: 15px;
+}
+.navbar-footer .navbar-text{
+    margin-top: 20px;
+}
+.navbar-header, .navbar-footer, .navbar-nav>li {
+    float: left;
+}
+.navbar-right {
+    float: right;
+}
+
+/* for the about us box */
+.about-box{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(243, 242, 244, 1.00)), to(rgba(217, 216, 218, 0.95)));
+    background-image: -webkit-linear-gradient(top, rgba(243, 242, 244, 1.00), rgba(217, 216, 218, 0.95));
+    background-image: -moz-linear-gradient(top, rgba(243, 242, 244, 1.00), rgba(217, 216, 218, 0.95));
+    background-image: -o-linear-gradient(top, rgba(243, 242, 244, 1.00), rgba(217, 216, 218, 0.95));
+    background-image: -ms-linear-gradient(top, rgba(243, 242, 244, 1.00), rgba(217, 216, 218, 0.95));
+    background-image: linear-gradient(top, rgba(243, 242, 244, 1.00), rgba(217, 216, 218, 0.95));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f3f2f4', EndColorStr='#d9d8da');
+    border: 1px solid silver;
+    border-radius: 2px;
+    word-wrap: break-word;
+    position: absolute;
+    right: 5%;
+    width: 45%;
+    max-width: 500px;
+    font-size: 0.9em;
+    line-height: 1.4em;
+	padding-top: 10px;
+    padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+    display: none;
+    z-index: 100;
+    -webkit-box-shadow: 0px 5px 18px 0px rgba(5,5,5,0.7); /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
+            box-shadow: 0px 5px 18px 0px rgba(5,5,5,0.7); /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+}
+.about-box a:visited {
+    opacity: 0.8;
+}
+.about-content{
+    padding-top: 20px;
+    background-color: none;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: #000;
+}
+.about-content a {
+	color: #00F;
+} 
+.about-content u {
+	font-weight: 600;
+	letter-spacing: 1px;
+	text-decoration: none;
+} 
+.about-close {
+    display: block;
+    position: absolute;
+    right: 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+    text-align: center;
+    background-color: #DDD;
+}
+
+/* tool tip stuff + tipsy.js stuff*/
+.tip1 {
+	font-family: 'Raleway', sans-serif;
+	font-size: 11pt;
+	text-align: center; 
+	text-transform: uppercase;
+	margin-bottom: 0px; 
+	margin-top: 0px;
+}
+.tip2 {
+	font-family: 'Raleway', sans-serif;
+	font-size: 10pt;
+	text-align: center; 
+	text-transform: uppercase;
+	margin-bottom: -12px; 
+}	
+.tip3 {
+	font-family: 'Raleway', sans-serif;
+	font-size: 10pt;
+	text-align: center; 
+	text-transform: uppercase;
+	margin-bottom: 0px; 
+}		
+.tipsy { 
+	font-family: 'Raleway', sans-serif;
+	font-size: 10px; 
+	position: absolute; 
+	padding: 5px; 
+	z-index: 100000; 
+}
+.tipsy-inner { 
+	background-color: #000; 
+	color: #FFF; 
+	max-width: 200px; 
+	padding: 0; 
+	text-align: left; 
+	padding: 10px;
+}
+/* Rounded corners */
+.tipsy-inner {
+	border-radius: 3px; 
+	-moz-border-radius: 3px; 
+	-webkit-border-radius: 3px; 
+}
+.tipsy-arrow { 
+	position: absolute; 
+	width: 0; 
+	height: 0; 
+	line-height: 0; 
+	border: 5px dashed #000; 
+}
+  /* Rules to color arrows */
+.tipsy-arrow-n { 
+	border-bottom-color: #000; 
+}
+.tipsy-arrow-s { 
+	border-top-color: #000; 
+}
+.tipsy-arrow-e { 
+	border-left-color: #FFF; 
+}
+.tipsy-arrow-w { 
+	border-right-color: #000; 
+}  
+.tipsy-n .tipsy-arrow { 
+	top: 0px; 
+	left: 50%; 
+	margin-left: -5px; 
+	border-bottom-style: solid; 
+	border-top: none; 
+	border-left-color: transparent; 
+	border-right-color: transparent; 
+}
+.tipsy-nw .tipsy-arrow { 
+	top: 0; 
+	left: 10px; 
+	border-bottom-style: solid; 
+	border-top: none; 
+	border-left-color: transparent; 
+	border-right-color: transparent;
+}
+.tipsy-ne .tipsy-arrow { 
+	top: 0; 
+	right: 10px; 
+	border-bottom-style: solid; 
+	border-top: none;  
+	border-left-color: transparent; 
+	border-right-color: transparent;
+}
+.tipsy-s .tipsy-arrow { 
+	bottom: 0; 
+	left: 50%; 
+	margin-left: -5px; 
+	border-top-style: solid; 
+	border-bottom: none;  
+	border-left-color: transparent; 
+	border-right-color: transparent; 
+}
+.tipsy-sw .tipsy-arrow { 
+	bottom: 0; 
+	left: 10px; 
+	border-top-style: solid; 
+	border-bottom: none;  
+	border-left-color: transparent; 
+	border-right-color: transparent; 
+}
+.tipsy-se .tipsy-arrow { 
+	bottom: 0; 
+	right: 10px; 
+	border-top-style: solid; 
+	border-bottom: none; 
+	border-left-color: transparent; 
+	border-right-color: transparent; 
+}
+.tipsy-e .tipsy-arrow { 
+	right: 0; 
+	top: 50%; 
+	margin-top: -5px; 
+	border-left-style: solid; 
+	border-right: none; 
+	border-top-color: transparent; 
+	border-bottom-color: transparent; 
+}
+.tipsy-w .tipsy-arrow { 
+	left: 0; 
+	top: 50%; 
+	margin-top: -5px; 
+	border-right-style: solid; 
+	border-left: none; 
+	border-top-color: transparent; 
+	border-bottom-color: transparent; 
+}
+.gravity { 
+	width: 100%; 
+	margin: 5px 0; 
+	border-spacing: 5px; 
+}
+.gravity td { 
+	text-align: center; 
+	vertical-align: middle; 
+	padding: 5px 0; 
+	background-color: #d0d0d0; 
+	width: 33%; 
+}
+.gravity a { 
+	text-align: center;
+}
+.gravity a:hover { 
+	color: #505050; 
+	background: none; 
+}
+
+/* For the chart (jumbotron) */
+
+.jumbotron {
+	padding: 2px;
+	margin-bottom: 30px;
+	color: inherit;
+	background-color: #fff;
+}
+svg {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+}
+svg text {
+	font-size: 12px;
+	font-family: 'Raleway', sans-serif;
+}
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+.x.axis path {
+	display: block;
+}
+.y.axis path {
+	display: block;
+}
+.menuchoice {
+	font-family: SourceSansPro-Bold;
+	font-size: 12pt;
+	margin-bottom: 0px;
+	fill: #231F20; 
+}
+/* For the map and list box */
+
+#map-container {
+	margin-right: -2px;
+	border-right: 2px solid #aaa;
+	width: 50%;
+	float: left;
+	height: 600px;
+	position: relative;
+}
+#map { 
+	width: 100%; 
+	height: 100%;
+}
+#map-hover-box {
+	position: fixed;
+	width: 100px;
+	background: #fff;
+	color: #000;
+	padding: 8px;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+	display: none;
+	z-index: 9999;
+	line-height: 1.3em;
+}
+#list-container {
+	width: 50%;
+	float: right;
+	background: #f8f5f2;
+	height: 600px;
+}
+#list-container > header {
+	padding: 10px;
+	display: block;
+	position: relative;
+}
+#srcbox {
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 16px;
+	width: 78%;
+	padding: 14px 10.5% 14px 2.5%;
+	margin: 15px auto 25px auto;
+	display: block;
+	border: none;
+	background: #eee;
+	box-shadow: inset 0px 0px 10px #ccc;
+	border-radius: 3px;
+}
+#srcbox-button {
+	background: transparent url('../img/src.png') no-repeat scroll center center;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	right: 15%;
+	top: 35px;
+}
+#reset {
+	padding: 4px;
+	position: absolute;
+	right: 13%;
+	top: 78px;
+	display: inline-block;
+	cursor: pointer;
+}
+#reset:hover {
+	border-radius: 2px;
+	background: #ddd;
+}
+#school-list {
+	border-top: 2px solid #aaa;
+	width: 100%;
+	height: 500px;
+	overflow-y: scroll;
+	box-shadow: inset 0px 0px 10px #ccc;
+}
+#school-list > ul > li {
+	padding: 20px;
+	cursor: pointer;
+	border-bottom: 1px solid #aaa;
+}
+#school-list > ul > li:hover { 
+	background: #fff 
+}
+
+/* Social Bookmark Icons */
+
+.social-bookmarks {
+	padding-top: 10px;
+	margin: 0!important;
+	list-style-type: none!important;
+}
+.social-bookmarks li{
+	float: left!important;
+	margin-right: 2px!important;
+	display: inline!important;
+	width: auto!important;
+	background-image: none !important;
+}			
+.social-bookmarks li a {
+	-moz-transition: all 0.3s ease 0s;
+	display: block!important;
+	float: left!important;
+	height: 100%!important;
+	margin: 0!important;
+	width: 40px!important;
+	height: 40px!important;
+	text-indent: -9999px!important;
+}
+.social-bookmarks li a {
+	background-position: 0 -40px!important;
+	background-color:transparent;
+}
+.social-bookmarks li a:hover {
+	background-position: 0 -40px!important;
+}
+.social-bookmarks li.facebook a {
+	background: url(/img/icons/facebook.png) no-repeat 0 0;
+}
+.social-bookmarks li.facebook a:hover {
+	background-color: #3b5998;
+}
+.social-bookmarks li.github a {
+	background: url(/img/icons/github.png) no-repeat 0 0;
+}
+.social-bookmarks li.github a:hover {
+	background-color: #7292a2;
+}
+.social-bookmarks li.linkedin a {
+	background: url(/img/icons/linkedin.png) no-repeat 0 0;
+}
+.social-bookmarks li.linkedin a:hover {
+	background-color: #007BB6;
+}
+.social-bookmarks li.twitter a {
+	background: url(/img/icons/twitter.png) no-repeat 0 0;
+}
+.social-bookmarks li.twitter a:hover {
+	background-color: #48c4d2;
+}
+.social-bookmarks li.mailto a {
+	background: url(/img/icons/mailto.png) no-repeat 0 0;
+}
+.social-bookmarks li.mailto a:hover {
+	background-color: #444444;
+}
+
+/* Standard (Mozilla) */
+ @keyframes blink {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.blink {
+    animation: blink 1.5s infinite;
+}
+/* Chrome & Safari */
+ @-webkit-keyframes blink {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.blink {
+    -webkit-animation: blink 1.5s infinite;
+}
+/* Mobile */
+ #mobile-map-page, .navbar .year, .navbar .toggle, .navbar-mobile {
+    display: none;
+}
+@media only screen and (max-height: 680px) {
+    #home-page {
+        position: absolute;
+        top: 0;
+        overflow: auto;
+        padding-top: 50px;
+        width: 100%;
+        opacity: inherit;
+        -webkit-overflow-scrolling: touch;
+    }
+    .carousel {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    .carousel-caption {
+        position: static;
+        top: 80px;
+        bottom: auto;
+        bottom: 0;
+        margin: 10px 10% 0;
+        height: auto;
+    }
+}
