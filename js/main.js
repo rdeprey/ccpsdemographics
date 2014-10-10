@@ -106,7 +106,7 @@ d3.csv("data/ccps_summary_by_year.csv", function (error, data){
 				return tip;
 			});
 						
-	// define tooltips to work with the circles class (above)
+	// define tooltips to work with the stacked bar chart (above)
 	$('svg rect').tipsy({
 		opacity: 1, 
 		gravity: 'w', 
