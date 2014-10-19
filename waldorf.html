@@ -8,12 +8,12 @@
 <meta name="keywords" content="Charles, County, Maryland, Schools, Demographics">
 <meta name="copyright" content="&copy; 2014 Thomas Liu">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<link rel="shortcut icon" href="/images/favicon.ico">
+<link rel="shortcut icon" href="images/favicon.ico">
 
 <!-- IMPORT STYLES (Bootstrap, Google Fonts, Leaflet) -->
 <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
-<link rel="stylesheet" type="text/css" href="/css/style2.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="./css/style2.css" media="screen" title="no title" charset="utf-8">
 <!--[if IE8]>
 	<script src="http://htmlshiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -27,14 +27,14 @@
 <script type = "text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script type = "text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="http://d3js.org/d3.v3.min.js" charset ="utf-8"></script>
-<script type = "text/javascript" src="/js/jquery.tipsy.js"></script>
+<script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
 </head>
 
 
 <body>
 <!-------------------------- begin top navigation box ------------------------>
 <header>
-	<div class="navbar navbar-default">
+	<div class="navbar">
 		<div class="navbar-header">
 			<p class="navbar-text">A T-Liu Production</p>
 		</div>	
@@ -73,11 +73,10 @@
 			<!------  end js for the about us box ------>			
 
 			<!-- begin introduction -->
-			<h4 class="upper ral fat red">Interactive Graphic</h4>
-			<h2 class="upper rob fat black">
-				The Changing Demographics of Charles County Public Schools
-			</h2>
-			<p class="rob">In light of a recent <a href="http://www.cnn.com/2014/08/18/opinion/navarrette-majority-minority-students-public-schools/" target="_blank" title="Navarrette: Don't be afraid of America's changing demographics">CNN article</a> by <a href="https://twitter.com/RubenNavarrette" target="_blank">Ruben Navarrette</a> that speaks about America's changing demographics, the below is a study on the same topic within the public schools of this Southern Maryland county.  The data visualization below will provide clarity on the breakdown at a county level and by each school.</p>
+			<!-- <h4 class="upper ral fat red">Interactive Graphic</h4>
+			<h2 class="upper rob fat black">The Changing Demographics of Charles County Public Schools</h2> -->
+			<h2 class="rob heavier black">The Changing Demographics of Charles County Public Schools</h2>
+			<p class="rob">In light of an August 2014 <a href="http://www.cnn.com/2014/08/18/opinion/navarrette-majority-minority-students-public-schools/" target="_blank" title="Navarrette: Don't be afraid of America's changing demographics">CNN article</a> by <a href="https://twitter.com/RubenNavarrette" target="_blank">Ruben Navarrette</a> that speaks about America's changing demographics, the below is a study on the same topic within the public schools of this Southern Maryland county.  The data visualization below will provide clarity on the breakdown at a county level and by each school.</p>
 			<!--- end introduction --->
 		</div></div>
 
@@ -93,9 +92,8 @@
 					
 				<section id="interactive" class="g-component">
 					<h4 class="upper fat ral black">Demographics by each schools</h4>
-					<p class="small gray rob">Of the 36 schools in Charles County, over 75% of them will enter this upcoming 2014-2015 school year with non-Hispanic white students as a minority group.<p>
-					<br>
-					<p class="small black rob">Use this interactive map to explore the demographics of each school.</p>
+					<p class="small gray rob">Of the 36 schools in Charles County, 26 of them entered the 2012-2013 school year with non-Hispanic white students as a minority group.  Of those schools heading into that same year, only two (Smallwood Middle and Matula Elementary) had a black student population of less than 50%.  19 schools had five percent of their student body represented with Hispanic background entering that same school year, a stark contrast to the one school (Middleton Elementary) in 2002-2003.<p>
+					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
 					<div>
 						<!-- MAP -->
 						<div id="map-container">
@@ -123,12 +121,13 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span>National Center for Education Statistics</p>
+				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span>National Center for Education Statistics
+				</p>
 			</div>
 		</div>
 
 
-		<script src="/js/main.js">
+		<script src="./js/main.js">
 		</script>
 
 <!--------------------------- begin sub heading --------------------------->
@@ -150,7 +149,7 @@
 <!------------------------------ begin footer ------------------------------>
 <footer>
 	<div class="footer">
-		<div class="navbar navbar-default">
+		<div class="navbar">
 			<div class="navbar-footer">
 				<p class="navbar-text">Copyright &copy; 2014 Thomas Liu </p>
 			</div>

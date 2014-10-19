@@ -68,12 +68,12 @@ html, body {
     padding-right: 50px;
     padding-left: 50px;
     border: none;
-    background-color: #000;
+    background-color: #000000;
 	position: relative;
 	left: 0;
 	right: 0;
 	/* background-color: #554943 */
-    color: #fff;
+    color: #d3d3d3
 }
 .navbar ul, .navbar li {
     margin: 0px;
@@ -350,12 +350,7 @@ svg text {
 .y.axis path {
 	display: block;
 }
-.menuchoice {
-	font-family: SourceSansPro-Bold;
-	font-size: 12pt;
-	margin-bottom: 0px;
-	fill: #231F20; 
-}
+
 /* For the map and list box */
 
 #map-container {
@@ -472,31 +467,31 @@ svg text {
 	background-position: 0 -40px!important;
 }
 .social-bookmarks li.facebook a {
-	background: url(/images/icons/facebook.png) no-repeat 0 0;
+	background: url(../images/icons/facebook.png) no-repeat 0 0;
 }
 .social-bookmarks li.facebook a:hover {
 	background-color: #3b5998;
 }
 .social-bookmarks li.github a {
-	background: url(/images/icons/github.png) no-repeat 0 0;
+	background: url(../images/icons/github.png) no-repeat 0 0;
 }
 .social-bookmarks li.github a:hover {
 	background-color: #7292a2;
 }
 .social-bookmarks li.linkedin a {
-	background: url(/images/icons/linkedin.png) no-repeat 0 0;
+	background: url(../images/icons/linkedin.png) no-repeat 0 0;
 }
 .social-bookmarks li.linkedin a:hover {
 	background-color: #007BB6;
 }
 .social-bookmarks li.twitter a {
-	background: url(/images/icons/twitter.png) no-repeat 0 0;
+	background: url(../images/icons/twitter.png) no-repeat 0 0;
 }
 .social-bookmarks li.twitter a:hover {
 	background-color: #48c4d2;
 }
 .social-bookmarks li.mailto a {
-	background: url(/images/icons/mailto.png) no-repeat 0 0;
+	background: url(../images/icons/mailto.png) no-repeat 0 0;
 }
 .social-bookmarks li.mailto a:hover {
 	background-color: #444444;

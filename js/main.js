@@ -2,11 +2,11 @@
 
 // set the frame and margin for the svg
 var margin = {top: 25, right: 50, bottom: 25, left: 50},
-	width = 1080 - margin.left - margin.right,
+	width = 960 - margin.left - margin.right,
 	height = 480 - margin.top - margin.bottom;
 	
 // colors for the chart and map
-var c = ["#9370db", "#db7093", "#89a3ca", "#94d394"]
+var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
 	
 // set the color scale
 var color = d3.scale.ordinal()
@@ -14,7 +14,7 @@ var color = d3.scale.ordinal()
 
 // set the ranges
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, (width - (margin.right))], .2);
+    .rangeRoundBands([0, (width - (margin.right))], .15);
 					
 var y = d3.scale.linear()
 	.rangeRound([height, 0]);
@@ -46,9 +46,9 @@ d3.csv("data/ccps_summary_by_year.csv", function (error, data){
 		.sortKeys(d3.ascending)
 		.rollup(function(d){
 			return {
+				white: d3.sum(d, function(g) {return g.white;}),
 				black: d3.sum(d, function(g) {return g.black;}),
 				hispanic: d3.sum(d, function(g) {return g.hispanic;}),
-				white: d3.sum(d, function(g) {return g.white;}),
 				other: d3.sum(d, function(g) {return g.other;})
 			};
 		})
@@ -79,7 +79,7 @@ d3.csv("data/ccps_summary_by_year.csv", function (error, data){
 		.call(yAxis)
 	.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", 5)
+		.attr("y", 3)
 		.attr("dy", ".71em")
 		.style("text-anchor", "end")
 		.text("Student Population (#)");
@@ -107,6 +107,7 @@ d3.csv("data/ccps_summary_by_year.csv", function (error, data){
 			});
 						
 	// define tooltips to work with the stacked bar chart (above)
+	
 	$('svg rect').tipsy({
 		opacity: 1, 
 		gravity: 'w', 
