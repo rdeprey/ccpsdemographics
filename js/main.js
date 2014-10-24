@@ -38,9 +38,9 @@ var svg = d3.select(".g-stacked-bar-chart")
 			"translate(" + margin.left + "," + margin.top + ")");
 
 // get the data
-d3.csv("data/ccps_summary_by_year.csv", function (error, data){
-/* d3.csv("data/ccps_data.csv", function (error, raw_data){
+d3.csv("data/ccps_data.csv", function (error, raw_data){
 
+	// roll the raw data up by year and return the summarized value by race as its own object property
 	var data = d3.nest()
 		.key(function(d) {return d.year;})
 		.sortKeys(d3.ascending)
@@ -52,20 +52,25 @@ d3.csv("data/ccps_summary_by_year.csv", function (error, data){
 				other: d3.sum(d, function(g) {return g.other;})
 			};
 		})
-		.entries(raw_data);
+		.entries(raw_data)
+		.map(function (d) {
+			return {year: d.key, white: d.values.white, black: d.values.black, hispanic: d.values.hispanic, other: d.values.other};
+		});
 
-	console.log(data)	
-		*/
-		
+	// uncomment to spit out the summary data in console
+	// console.log(data)
+
+	// assign color to each of the race by grabbing the first object in the data set
 	color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
-	//color.domain(data.map(function(d) {return d;}));
 
+	// assign variables for totals and do the calculation
 	data.forEach(function(d) {
 		var y0 = 0;
 		d.group = color.domain().map(function(name) { return {year: d.year, name: name, y0: y0, y1: y0 += +d[name]}; });
 		d.total = d.group[d.group.length - 1].y1;
 	});
 
+	// set the x and y domain based on the year and total, respectively
 	x.domain(data.map(function(d) { return d.year; }));
 	y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
@@ -166,8 +171,6 @@ var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> con
 var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
 
 $map.addLayer(layer);
-
-
 
 /*
 function getPos(event) {

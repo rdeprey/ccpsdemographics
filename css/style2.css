@@ -400,7 +400,7 @@ svg text {
 	border-radius: 3px;
 }
 #srcbox-button {
-	background: transparent url('../images/src.png') no-repeat scroll center center;
+	/* background: transparent url('../images/src.png') no-repeat scroll center center; */
 	width: 25px;
 	height: 25px;
 	position: absolute;
