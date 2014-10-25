@@ -201,9 +201,12 @@ html, body {
 	z-index: 100000; 
 }
 .tipsy-inner { 
-	background-color: #000; 
-	color: #FFF; 
+	background-color: #fff; 
+	color: #000; 
+	border-style: solid;
+	border-width: thick;
 	max-width: 300px; 
+	max-height: 600px;
 	padding: 0; 
 	text-align: left; 
 	padding: 10px;
@@ -229,7 +232,7 @@ html, body {
 	border-top-color: #000; 
 }
 .tipsy-arrow-e { 
-	border-left-color: #FFF; 
+	border-left-color: #000; 
 }
 .tipsy-arrow-w { 
 	border-right-color: #000; 

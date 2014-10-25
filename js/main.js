@@ -7,6 +7,7 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
+//var c = ["#98abc5", "#c6e5d9", "#edc951", "#faa460"]
 	
 // set the color scale
 var color = d3.scale.ordinal()
@@ -66,7 +67,8 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	// assign variables for totals and do the calculation
 	data.forEach(function(d) {
 		var y0 = 0;
-		d.group = color.domain().map(function(name) { return {year: d.year, name: name, y0: y0, y1: y0 += +d[name]}; });
+		var max = d.white + d.black + d.hispanic + d.other
+		d.group = color.domain().map(function(name) { return {year: d.year, name: name, max: max, y0: y0, y1: y0 += +d[name]}; });
 		d.total = d.group[d.group.length - 1].y1;
 	});
 
@@ -105,11 +107,15 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 		.attr("title", function (d) {
 			var c = color(d.name);
 			var tip = '<p class="tip3"> School Year: ' + d.year + '</p>'
+				+ '<p class="tip3"> Student Body #: ' + d.max + '</p>'
+				+ '<p class="tip3"> -------------------------- </p>'
 				+ '<p class="tip3"> Race/Ethnicity: <span style="color:' + c + '"> ' + d.name + '</p>' 
-				+ '<p class="tip1"> # of Students: <span style="color:' + c + '"> ' + d3.format(",")(d.value ? d.value: d.y1 - d.y0); + '</p>'
-				+ '<p class="tip3"> Test: ' + function(v) { return y(v.y1); }; + '</p>'
+				+ '<p class="tip1"> # of Students: <span style="color:' + c + '"> ' + d3.format(",")(d.value ? d.value: d.y1 - d.y0) + '</p>'
+				+ '<p class="tip1"> % of Students: <span style="color:' + c + '"> ' + d3.format(".2%")(d.value ? d.value: (d.y1 - d.y0)/d.max) + '</p>'
 				return tip;
 			});
+
+		console.log(document.getElementById("svg"))
 						
 	// define tooltips to work with the stacked bar chart (above)
 	
