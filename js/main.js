@@ -1,5 +1,9 @@
 // ---- FOR THE GRAPH ---- //
 
+// **********************************************************************************
+// ************************ BEGINNING OF THE COUNTY LEVEL ***************************
+// **********************************************************************************
+
 // set the frame and margin for the svg
 var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	width = 960 - margin.left - margin.right,
@@ -29,7 +33,7 @@ var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left");
 
-// adds the svg canvas
+// adds the svg canvas to the g-stacked-bar-chart div
 var svg = d3.select(".g-stacked-bar-chart")
 	.append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -38,7 +42,7 @@ var svg = d3.select(".g-stacked-bar-chart")
 		.attr("transform", 
 			"translate(" + margin.left + "," + margin.top + ")");
 
-// get the data
+// bind the data file 
 d3.csv("data/ccps_data.csv", function (error, raw_data){
 
 	// roll the raw data up by year and return the summarized value by race as its own object property
@@ -58,13 +62,10 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			return {year: d.key, white: d.values.white, black: d.values.black, hispanic: d.values.hispanic, other: d.values.other};
 		});
 
-	// uncomment to spit out the summary data in console
-	// console.log(data)
-
 	// assign color to each of the race by grabbing the first object in the data set
 	color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
 
-	// assign variables for totals and do the calculation
+	// by year, get the sum and map each race to a block of color
 	data.forEach(function(d) {
 		var y0 = 0;
 		var max = d.white + d.black + d.hispanic + d.other
@@ -76,11 +77,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	x.domain(data.map(function(d) { return d.year; }));
 	y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
+	// draw the x-axis on the svg
 	svg.append("g")
 		.attr("class", "x axis")
 		.attr("transform", "translate(0," + height + ")")
 		.call(xAxis);
 
+	// draw the y-axis on the svg
 	svg.append("g")
 		.attr("class", "y axis")
 		.call(yAxis)
@@ -97,6 +100,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 		.attr("class", "g")
 		.attr("transform", function(d) { return "translate(" + x(d.year) + ",0)"; });
 
+	// draw the chart on the svg using the d.group data set
 	group.selectAll("rect")
 		.data(function(d) { return d.group; })
 	.enter().append("rect")
@@ -115,16 +119,16 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 				return tip;
 			});
 
-		console.log(document.getElementById("svg"))
+	//console.log(document.getElementById("svg"))
 						
-	// define tooltips to work with the stacked bar chart (above)
-	
+	// define tooltips to work with the stacked bar chart (above)	
 	$('svg rect').tipsy({
 		opacity: 1, 
 		gravity: 'w', 
 		html: true
 	});
 
+	// draw the legend on the upper right corner of the svg
 	var legend = svg.selectAll(".legend")
 		.data(color.domain().slice().reverse())
 	.enter().append("g")
@@ -143,6 +147,39 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 		.attr("dy", ".35em")
 		.style("text-anchor", "end")
 		.text(function(d) { return d; });
+
+// **********************************************************************************
+// *************************** END OF THE COUNTY LEVEL ******************************
+// **********************************************************************************
+
+// **********************************************************************************
+// ************************ BEGINNING OF THE SCHOOL LEVEL ***************************
+// **********************************************************************************
+
+	function reformat (array) {
+		var locdata = [];
+  		array.map(function (d){
+			locdata.push({
+ 				properties: {
+	                white: +d.white,
+	                black: +d.black,
+	                hispanic: +d.hispanic,
+	                other: +d.other,
+	                year: d.year,
+	                school: d.school,
+	                state_id: +d.state_id
+      			}, 
+         		type: "Feature", 
+           		geometry: {
+               		coordinates:[+d.longitude, +d.latitude], 
+             		type:"Point"
+          		}
+      		});
+ 		});
+ 		
+ 		return locdata;	
+ 	}
+ 	var geoData = {type: "FeatureCollection", features: reformat(raw_data)};
 });
 
 
