@@ -42,6 +42,7 @@ var svg = d3.select(".g-stacked-bar-chart")
 		.attr("transform", 
 			"translate(" + margin.left + "," + margin.top + ")");
 
+// open d3.js bracket
 // bind the data file 
 d3.csv("data/ccps_data.csv", function (error, raw_data){
 
@@ -152,6 +153,8 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 // *************************** END OF THE COUNTY LEVEL ******************************
 // **********************************************************************************
 
+// ----------------------------------------------------------------------------------
+
 // **********************************************************************************
 // ************************ BEGINNING OF THE SCHOOL LEVEL ***************************
 // **********************************************************************************
@@ -176,12 +179,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
           		}
       		});
  		});
- 		
+
  		return locdata;	
  	}
  	var geoData = {type: "FeatureCollection", features: reformat(raw_data)};
-});
 
+
+}); // close d3.js bracket
 
 // ---- FOR THE MAP ---- //
 
@@ -215,7 +219,7 @@ var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribut
 
 $map.addLayer(layer);
 
-/*
+// function to set position of hover box on map points
 function getPos(event) {
 	posX = event.clientX;
 	posY = event.clientY;
@@ -225,16 +229,17 @@ function getPos(event) {
 	});
 }
 
+// function to show hover box on hover of map points
 function initHover() {
 	$('#map-hover-box').show();
 	$(document).bind('mousemove', getPos);
 }
 
+// function to hide hover box on hover of map points
 function endHover() {
 	$('#map-hover-box').hide();
 	$(document).unbind('mousemove', getPos);
 }
-
 
 dot = L.CircleMarker.extend({
 	options: {
@@ -251,8 +256,11 @@ focuser = new L.CircleMarker([0, 0], {
 	SVG: true,
 	VML: true,
 	radius: 12,
-}).addTo($map);
+});
 
+focuser.addTo($map);
+
+/*
 function getCat(array) {
 	if (array.yr1213) {
 		seg = [0,false]
