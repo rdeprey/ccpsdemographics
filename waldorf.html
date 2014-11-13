@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,12 +21,13 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:300,500,900">
 
-<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet) -->
+<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, Modernizr) -->
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
 <script type = "text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script type = "text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="http://d3js.org/d3.v3.min.js" charset ="utf-8"></script>
+<script type = "text/javascript" src="./js/modernizr.js"></script>
 <script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
 </head>
 
@@ -76,8 +77,10 @@
 			<div class="col-xs-14 col-sm-10"> <!-- center column -->
 
 				<!-- begin introduction -->
-				<h3 class="upper ral heavier black">The Changing Demographics of Charles County Public Schools</h3>
-				<p class="rob">In light of an August 2014 <a href="http://www.cnn.com/2014/08/18/opinion/navarrette-majority-minority-students-public-schools/" target="_blank" title="Navarrette: Don't be afraid of America's changing demographics">CNN article</a> by <a href="https://twitter.com/RubenNavarrette" target="_blank">Ruben Navarrette</a> that speaks about America's changing demographics in public schools, the below is a study on the same topic within this Southern Maryland county.  The data visualization and short blurbs below will provide clarity on the breakdown at a county level and by each school.</p>
+				<div id="briefsummary">
+					<h3 class="upper ral heavier black">The Changing Demographics of Charles County Public Schools</h3>
+					<p class="rob">In light of an August 2014 <a href="http://www.cnn.com/2014/08/18/opinion/navarrette-majority-minority-students-public-schools/" target="_blank" title="Navarrette: Don't be afraid of America's changing demographics">CNN article</a> by <a href="https://twitter.com/RubenNavarrette" target="_blank">Ruben Navarrette</a> that speaks about America's changing demographics in public schools, the below is a study on the same topic within this Southern Maryland county.  The data visualization and short blurbs below will provide clarity on the breakdown at a county level and by each school.</p>
+				</div>
 				
 				<div id="ccps-breakdown" class="g-component">
 					<h4 class="upper fat ral black">Demographics at the county level</h4>
