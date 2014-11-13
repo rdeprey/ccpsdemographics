@@ -6,7 +6,8 @@
 
 // set the frame and margin for the svg
 var margin = {top: 25, right: 50, bottom: 25, left: 50},
-	width = 960 - margin.left - margin.right,
+	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth
+	width = browserwidth - margin.left - margin.right,
 	height = 480 - margin.top - margin.bottom;
 	
 // colors for the chart and map
@@ -19,7 +20,7 @@ var color = d3.scale.ordinal()
 
 // set the ranges
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, (width - (margin.right))], .15);
+    .rangeRoundBands([0, (width - (margin.right))], .2);
 					
 var y = d3.scale.linear()
 	.rangeRound([height, 0]);
@@ -36,7 +37,8 @@ var yAxis = d3.svg.axis()
 // adds the svg canvas to the g-stacked-bar-chart div
 var svg = d3.select(".g-stacked-bar-chart")
 	.append("svg")
-		.attr("width", width + margin.left + margin.right)
+		//.attr("width", width + margin.left + margin.right)
+		.attr("width", "100%")
 		.attr("height", height + margin.top + margin.bottom)
 	.append("g")
 		.attr("transform", 
@@ -184,7 +186,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
  	}
  	var geoData = {type: "FeatureCollection", features: reformat(raw_data)};
 
-
+ 	console.log(geoData)
 }); // close d3.js bracket
 
 // ---- FOR THE MAP ---- //
@@ -261,26 +263,6 @@ focuser = new L.CircleMarker([0, 0], {
 focuser.addTo($map);
 
 /*
-function getCat(array) {
-	if (array.yr1213) {
-		seg = [0,false]
-		total = array.yr1213.w+array.yr1213.b+array.yr1213.h+array.yr1213.o
-		comparison = [array.yr1213.w,array.yr1213.b,array.yr1213.h,array.yr1213.o]
-			$.each(comparison, function(i) {
-				if (comparison[i]/total > 0.85) {
-					seg[0] = i
-					seg[1] = true
-				}
-			});
-		if (seg[1] === true) {
-			c = ['#62B360','#648097','#D36D6E','#A067A8']
-			return c[seg[0]]
-
-		} else {
-			return '#ccc'
-		}
-	}
-}
 order = 0
 $.each(schools, function(i) {
 
