@@ -538,9 +538,6 @@ svg text {
     	float: none;
   	}
 
-  	.navbar .navbar-text {
-	    padding: 5px;
-	}
 
     .carousel {
         position: absolute;
