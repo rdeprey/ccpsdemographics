@@ -88,10 +88,10 @@ html, body {
     font-size: 14px;
 }
 .navbar a.navbar-link, .share-button a {
-    color:#6d7988;
+    color: #6d7988;
 }
 .navbar a.navbar-link:hover {
-    color:#C4C4C4;
+    color: #C4C4C4;
 }
 .navbar .navbar-text {
     float: left;
@@ -528,16 +528,20 @@ svg text {
 
 /* Mobile */
 @media only screen and (max-device-width: 1024px) {
-
-	.navbar-header {
-    	float: none;
-  	}
   
   	.navbar {
 		padding-right: 5px;
     	padding-left: 5px;
   	}
-  	
+
+  	.navbar-header {
+    	float: none;
+  	}
+
+  	.navbar .navbar-text {
+	    padding: 5px;
+	}
+
     .carousel {
         position: absolute;
         top: 0;
