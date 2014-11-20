@@ -13,8 +13,6 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
 //var c = ["#98abc5", "#c6e5d9", "#edc951", "#faa460"]
-
-//var parseYear= d3.time.format("%Y=%Y").parse;
 	
 // set the color scale
 var color = d3.scale.ordinal()
@@ -149,18 +147,33 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 		.attr("class", "legend")
 		.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-	legend.append("rect")
-		.attr("x", width - 12)
-		.attr("width", 18)
-		.attr("height", 18)
-		.style("fill", color);
+	if ($(window).width() < 1024 || $(window).height() < 480) {
+    	// small screen, move the legend to the bottom
+		legendSpace = width/data.length;
 
-	legend.append("text")
-		.attr("x", width - 15)
-		.attr("y", 9)
-		.attr("dy", ".35em")
-		.style("text-anchor", "end")
-		.text(function(d) { return d; });
+		legend.append("text")
+			.attr("x", legendSpace + i *(legendSpace))
+			.attr("y", height + (margin.bottom / 2) + 5)
+			.style("text-anchor", "end")
+			.style("fill", color)
+			.text(function(d) { return d; });
+	}
+	else {
+		// regular screen, move the legend to the upper right of svg
+    	legend.append("rect")
+			.attr("x", width - 12)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", color);
+
+		legend.append("text")
+			.attr("x", width - 15)
+			.attr("y", 9)
+			.attr("dy", ".35em")
+			.style("text-anchor", "end")
+			.text(function(d) { return d; });
+	}
+	
 
 // **********************************************************************************
 // *************************** END OF THE COUNTY LEVEL ******************************
