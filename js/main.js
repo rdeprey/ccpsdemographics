@@ -8,7 +8,7 @@
 var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth
 	width = browserwidth - margin.left - margin.right,
-	height = 480 - margin.top - margin.bottom;
+	height = 420 - margin.top - margin.bottom;
 	
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
@@ -29,6 +29,7 @@ var y = d3.scale.linear()
 var xAxis = d3.svg.axis()
 	.scale(x)
 	.orient("bottom");
+	//.tickFormat(d3.time.format("%H"));
 
 var yAxis = d3.svg.axis()
 	.scale(y)
@@ -84,7 +85,15 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	svg.append("g")
 		.attr("class", "x axis")
 		.attr("transform", "translate(0," + height + ")")
-		.call(xAxis);
+		.call(xAxis)        
+		.selectAll("text");
+		/* 
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-45)" 
+                }); */
 
 	// draw the y-axis on the svg
 	svg.append("g")
