@@ -533,6 +533,11 @@ svg text {
 		padding-right: 5px;
     	padding-left: 10px;
   	}
+  	.navbar-footer {
+		text-decoration: none;
+    	font-weight: 400;
+    	font-size: 10px;
+  	}
   	.about-content {
 		font-weight: 400;
 	}

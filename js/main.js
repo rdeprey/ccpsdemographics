@@ -53,7 +53,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 
 	// roll the raw data up by year and return the summarized value by race as its own object property
 	var data = d3.nest()
-		.key(function(d) {return d.year;})
+		.key(function(d) {return d.short_year;})
 		.sortKeys(d3.ascending)
 		.rollup(function(d){
 			return {
