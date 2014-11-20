@@ -533,6 +533,12 @@ svg text {
 		padding-right: 8px;
     	padding-left: 10px;
   	}
+  	.about-content {
+		font-weight: 400;
+	}
+	.about-content u {
+		font-weight: 500;
+	} 
     .carousel {
         position: absolute;
         top: 0;
