@@ -13,6 +13,8 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
 //var c = ["#98abc5", "#c6e5d9", "#edc951", "#faa460"]
+
+//var parseYear= d3.time.format("%Y=%Y").parse;
 	
 // set the color scale
 var color = d3.scale.ordinal()
