@@ -155,11 +155,10 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.data(color.domain().slice().reverse())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(" + (width / 4) + "," + (height + margin.bottom) + ")";});
+			.attr("transform", function(d, i) {return "translate(" + (browserwidth / 6) + "," + (height + margin.bottom) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
-			//.attr("x", width - 12)
 			.attr("x", function(d, i) {return i * 70 + 30;})
 			.attr("width", 15)
 			.attr("height", 15)
