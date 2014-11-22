@@ -6,9 +6,15 @@
 
 // set the frame and margin for the svg
 var margin = {top: 25, right: 50, bottom: 25, left: 50},
-	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth
-	width = browserwidth - margin.left - margin.right,
+	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth,
 	height = 420 - margin.top - margin.bottom;
+
+if ($(window).width() < 1024 || $(window).height() < 480) {
+	var width = browserwidth;
+}
+else{
+	var width = browserwidth - margin.left - margin.right;
+}
 	
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
@@ -40,7 +46,7 @@ var svg = d3.select(".g-stacked-bar-chart")
 	.append("svg")
 		//.attr("width", width + margin.left + margin.right)
 		.attr("width", "100%")
-		.attr("height", height + margin.top + margin.bottom)
+		.attr("height", height + (margin.top * 3))
 	.append("g")
 		.attr("transform", 
 			"translate(" + margin.left + "," + margin.top + ")");
@@ -140,26 +146,74 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 		html: true
 	});
 
-	// draw the legend on the upper right corner of the svg
-	var legend = svg.selectAll(".legend")
-		.data(color.domain().slice().reverse())
-	.enter().append("g")
-		.attr("class", "legend")
-		.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	// draw the legend
 
-	if ($(window).width() < 1024 || $(window).height() < 480) {
+	if ($(window).width() > 1024 || $(window).height() > 480) {
     	// small screen, move the legend to the bottom
-		legendSpace = width/data.length;
+
+
+		var legend = svg.append("g")
+			.attr("class", "legend")
+		  	.attr("x", width)
+		  	.attr("height", 50)
+			.attr("width", 300)
+	    	.attr("transform", function(d, i) { return "translate(50," + i * 20 + ")"; });
+		  //.attr("transform", "translate(" + (0 + 50) + ", -50)");
+
+		legend.selectAll('g').data(dataset)
+		  	.enter()
+		 	.append('g')
+		 	.each(function(d, i) {
+		   		var g = d3.select(this);
+		   		g.append("rect")
+			   		.attr("x", i * 60)
+			      	.attr("y", 280)
+			    	.attr("width", 10)
+			     	.attr("height", 10)
+			      	.style("fill", color);
+        
+       g.append("text")
+          .attr("x", i * 60 + 15)
+          .attr("y", 288)
+          .attr("height",30)
+          .attr("width",100)
+          .text(function(d) {return d; });
+
+      });
+
+
+
+
+		var legend = svg.selectAll(".legend")
+			.data(color.domain().slice().reverse())
+		.enter().append("g")
+			.attr("class", "legend")
+			.attr("x", width)	
+		  	.attr("height", 50)
+			.attr("width", 300)
+			.attr("transform", function(d, i) { return "translate(50," + i * 20 + ")"; });
+
+    	legend.append("rect")
+			.attr("x", w)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", color);
 
 		legend.append("text")
-			.attr("x", legendSpace + i *(legendSpace))
-			.attr("y", height + (margin.bottom / 2) + 5)
+			.attr("x", width - 15)
+			.attr("y", 9)
+			.attr("dy", ".35em")
 			.style("text-anchor", "end")
-			.style("fill", color)
 			.text(function(d) { return d; });
 	}
 	else {
 		// regular screen, move the legend to the upper right of svg
+		var legend = svg.selectAll(".legend")
+			.data(color.domain().slice().reverse())
+		.enter().append("g")
+			.attr("class", "legend")
+			.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+    	
     	legend.append("rect")
 			.attr("x", width - 12)
 			.attr("width", 18)
