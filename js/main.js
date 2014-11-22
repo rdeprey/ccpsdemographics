@@ -9,7 +9,10 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth,
 	height = 420 - margin.top - margin.bottom;
 
-if ($(window).width() < 1024 || $(window).height() < 480) {
+var mobiledefaultwidth = 768,
+	mobiledefaultheight = 480;
+
+if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
 	var width = browserwidth;
 }
 else{
@@ -136,8 +139,6 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 				+ '<p class="tip1"> % of Students: <span style="color:' + c + '"> ' + d3.format(".2%")(d.value ? d.value: (d.y1 - d.y0)/d.max) + '</p>'
 				return tip;
 			});
-
-	//console.log(document.getElementById("svg"))
 						
 	// define tooltips to work with the stacked bar chart (above)	
 	$('svg rect').tipsy({
@@ -148,62 +149,27 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 
 	// draw the legend
 
-	if ($(window).width() > 1024 || $(window).height() > 480) {
+	if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
     	// small screen, move the legend to the bottom
-
-
-		var legend = svg.append("g")
-			.attr("class", "legend")
-		  	.attr("x", width)
-		  	.attr("height", 50)
-			.attr("width", 300)
-	    	.attr("transform", function(d, i) { return "translate(50," + i * 20 + ")"; });
-		  //.attr("transform", "translate(" + (0 + 50) + ", -50)");
-
-		legend.selectAll('g').data(dataset)
-		  	.enter()
-		 	.append('g')
-		 	.each(function(d, i) {
-		   		var g = d3.select(this);
-		   		g.append("rect")
-			   		.attr("x", i * 60)
-			      	.attr("y", 280)
-			    	.attr("width", 10)
-			     	.attr("height", 10)
-			      	.style("fill", color);
-        
-       g.append("text")
-          .attr("x", i * 60 + 15)
-          .attr("y", 288)
-          .attr("height",30)
-          .attr("width",100)
-          .text(function(d) {return d; });
-
-      });
-
-
-
-
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("x", width)	
-		  	.attr("height", 50)
-			.attr("width", 300)
-			.attr("transform", function(d, i) { return "translate(50," + i * 20 + ")"; });
-
+			.attr("transform", function(d, i) {return "translate(" + (width / 4) + "," + (height + margin.bottom) + ")";});
+			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+    	
     	legend.append("rect")
-			.attr("x", w)
-			.attr("width", 18)
-			.attr("height", 18)
+			//.attr("x", width - 12)
+			.attr("x", function(d, i) {return i * 70 + 30;})
+			.attr("width", 15)
+			.attr("height", 15)
 			.style("fill", color);
 
 		legend.append("text")
-			.attr("x", width - 15)
-			.attr("y", 9)
+			.attr("x", function(d, i) {return i * 70 + 50;})
+			.attr("y", 8)
 			.attr("dy", ".35em")
-			.style("text-anchor", "end")
+			.style("text-anchor", "start")
 			.text(function(d) { return d; });
 	}
 	else {
