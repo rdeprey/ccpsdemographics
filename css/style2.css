@@ -527,9 +527,8 @@ svg text {
 
 
 /* Mobile */
-@media only screen and (max-device-width: 768px){
-  
-  	.navbar {
+@media only screen and (max-device-width: 1280px){
+	.navbar {
 		padding-right: 5px;
     	padding-left: 10px;
   	}
@@ -538,6 +537,13 @@ svg text {
     	font-weight: 400;
     	font-size: 10px;
   	}
+}
+@media only screen and (max-device-width: 1024px){
+	.legend {
+    	font-size: 8px;
+  	}
+}
+@media only screen and (max-device-width: 768px){
   	.tip1 {
 		font-size: 10pt;
 	}

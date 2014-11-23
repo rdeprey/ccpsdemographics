@@ -162,13 +162,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
     	
     	legend.append("rect")
 			.attr("x", function(d, i) {return i * 70 + 30;})
-			.attr("width", 15)
-			.attr("height", 15)
+			.attr("width", 12)
+			.attr("height", 12)
 			.style("fill", color);
 
 		legend.append("text")
 			.attr("x", function(d, i) {return i * 70 + 50;})
-			.attr("y", 8)
+			.attr("y", 7)
 			.attr("dy", ".35em")
 			.style("text-anchor", "start")
 			.text(function(d) { return d; });
