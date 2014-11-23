@@ -151,7 +151,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	// draw the legend
 
 	//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
-	if ($(window).width() < mobiledefaultwidth) {
+	if ($(document).width() < mobiledefaultwidth) {
     	// small screen, move the legend to the bottom and set it at start of x-axis
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
@@ -173,13 +173,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.style("text-anchor", "start")
 			.text(function(d) { return d; });
 	}
-	else if ($(window).width() < (mobiledefaultwidth + 256)){
+	else if ($(document).width() < (mobiledefaultwidth + 256)){
 		// wide mobile screen, move the legend to the bottom and center it
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(" (browserwidth / 4)+ "," + (height + margin.bottom) + ")";});
+			.attr("transform", function(d, i) {return "translate(" (browserwidth / 4) + "," + (height + margin.bottom) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
