@@ -9,7 +9,7 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 	browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth,
 	height = 420 - margin.top - margin.bottom;
 
-var mobiledefaultwidth = 768,
+var mobiledefaultwidth = 780,
 	mobiledefaultheight = 480;
 
 //if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
