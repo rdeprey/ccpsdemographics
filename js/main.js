@@ -94,6 +94,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	// draw the x-axis on the svg
 	svg.append("g")
 		.attr("class", "x axis")
+		.attr("id", "xaxis")
 		.attr("transform", "translate(0," + height + ")")
 		.call(xAxis)        
 		.selectAll("text");
@@ -108,6 +109,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	// draw the y-axis on the svg
 	svg.append("g")
 		.attr("class", "y axis")
+		.attr("id", "yaxis")
 		.call(yAxis)
 	.append("text")
 		.attr("transform", "rotate(-90)")
@@ -153,44 +155,24 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
 	if ($(document).width() < mobiledefaultwidth) {
     	// small screen, move the legend to the bottom and set it at start of x-axis
+    	var svgwidth = $('.g-stacked-bar-chart').width();
+
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(0," + (height + margin.bottom) + ")";});
+			.attr("transform", function(d, i) {return "translate(" + (svgwidth - 265) + "," + (height + margin.bottom) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
-			.attr("x", function(d, i) {return i * 70 + 30;})
-			.attr("width", 12)
-			.attr("height", 12)
+			.attr("x", function(d, i) {return i * 50 + 25;})
+			.attr("width", 8)
+			.attr("height", 8)
 			.style("fill", color);
 
 		legend.append("text")
-			.attr("x", function(d, i) {return i * 70 + 50;})
-			.attr("y", 7)
-			.attr("dy", ".35em")
-			.style("text-anchor", "start")
-			.text(function(d) { return d; });
-	}
-	else if ($(document).width() < (mobiledefaultwidth + 256)){
-		// wide mobile screen, move the legend to the bottom and center it
-		var legend = svg.selectAll(".legend")
-			.data(color.domain().slice().reverse())
-		.enter().append("g")
-			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(" (browserwidth / 4) + "," + (height + margin.bottom) + ")";});
-			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-    	
-    	legend.append("rect")
-			.attr("x", function(d, i) {return i * 70 + 30;})
-			.attr("width", 15)
-			.attr("height", 15)
-			.style("fill", color);
-
-		legend.append("text")
-			.attr("x", function(d, i) {return i * 70 + 50;})
-			.attr("y", 8)
+			.attr("x", function(d, i) {return i * 50 + 35;})
+			.attr("y", 4)
 			.attr("dy", ".35em")
 			.style("text-anchor", "start")
 			.text(function(d) { return d; });
