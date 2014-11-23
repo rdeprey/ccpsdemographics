@@ -527,7 +527,7 @@ svg text {
 
 
 /* Mobile */
-@media only screen and (max-device-width: 768px) and (max-device-height: 768px){
+@media only screen and (max-device-width: 768px){
   
   	.navbar {
 		padding-right: 5px;
