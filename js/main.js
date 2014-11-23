@@ -67,13 +67,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			return {
 				white: d3.sum(d, function(g) {return g.white;}),
 				black: d3.sum(d, function(g) {return g.black;}),
-				hispanic: d3.sum(d, function(g) {return g.hispanic;}),
-				other: d3.sum(d, function(g) {return g.other;})
+				other: d3.sum(d, function(g) {return g.other;}),
+				hispanic: d3.sum(d, function(g) {return g.hispanic;})
 			};
 		})
 		.entries(raw_data)
 		.map(function (d) {
-			return {year: d.key, white: d.values.white, black: d.values.black, hispanic: d.values.hispanic, other: d.values.other};
+			return {year: d.key, white: d.values.white, black: d.values.black, other: d.values.other, hispanic: d.values.hispanic};
 		});
 
 	// assign color to each of the race by grabbing the first object in the data set
@@ -158,20 +158,20 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
     	var svgwidth = $('.g-stacked-bar-chart').width();
 
 		var legend = svg.selectAll(".legend")
-			.data(color.domain().slice().reverse())
+			.data(color.domain().slice())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(" + (svgwidth - 265) + "," + (height + margin.bottom) + ")";});
+			.attr("transform", function(d, i) {return "translate(" + (svgwidth - 240) + "," + (height + margin.bottom) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
-			.attr("x", function(d, i) {return i * 50 + 25;})
+			.attr("x", function(d, i) {return i * 37 + 25;})
 			.attr("width", 8)
 			.attr("height", 8)
 			.style("fill", color);
 
 		legend.append("text")
-			.attr("x", function(d, i) {return i * 50 + 35;})
+			.attr("x", function(d, i) {return i * 37 + 34;})
 			.attr("y", 4)
 			.attr("dy", ".35em")
 			.style("text-anchor", "start")
