@@ -12,7 +12,8 @@ var margin = {top: 25, right: 50, bottom: 25, left: 50},
 var mobiledefaultwidth = 768,
 	mobiledefaultheight = 480;
 
-if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
+//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
+if ($(window).width() < mobiledefaultwidth) {
 	var width = browserwidth;
 }
 else{
@@ -149,13 +150,36 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 
 	// draw the legend
 
-	if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
-    	// small screen, move the legend to the bottom
+	//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
+	if ($(window).width() < mobiledefaultwidth) {
+    	// small screen, move the legend to the bottom and set it at start of x-axis
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
 		.enter().append("g")
 			.attr("class", "legend")
 			.attr("transform", function(d, i) {return "translate(0," + (height + margin.bottom) + ")";});
+			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+    	
+    	legend.append("rect")
+			.attr("x", function(d, i) {return i * 70 + 30;})
+			.attr("width", 15)
+			.attr("height", 15)
+			.style("fill", color);
+
+		legend.append("text")
+			.attr("x", function(d, i) {return i * 70 + 50;})
+			.attr("y", 8)
+			.attr("dy", ".35em")
+			.style("text-anchor", "start")
+			.text(function(d) { return d; });
+	}
+	else if ($(window).width() < (mobiledefaultwidth + 256)){
+		// wide mobile screen, move the legend to the bottom and center it
+		var legend = svg.selectAll(".legend")
+			.data(color.domain().slice().reverse())
+		.enter().append("g")
+			.attr("class", "legend")
+			.attr("transform", function(d, i) {return "translate(" (browserwidth / 4)+ "," + (height + margin.bottom) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
