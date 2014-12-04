@@ -90,33 +90,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	// set the x and y domain based on the year and total, respectively
 	x.domain(data.map(function(d) { return d.year; }));
 	y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-	// draw the x-axis on the svg
-	svg.append("g")
-		.attr("class", "x axis")
-		.attr("id", "xaxis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(xAxis)        
-		.selectAll("text");
-		/* 
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-45)" 
-                }); */
-
-	// draw the y-axis on the svg
-	svg.append("g")
-		.attr("class", "y axis")
-		.attr("id", "yaxis")
-		.call(yAxis)
-	.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 3)
-		.attr("dy", ".71em")
-		.style("text-anchor", "end")
-		.text("Student Population (#)");
+	
 
 	var group = svg.selectAll(".group")
 		.data(data)
@@ -161,7 +135,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.data(color.domain().slice())
 		.enter().append("g")
 			.attr("class", "legend")
-			.attr("transform", function(d, i) {return "translate(" + (svgwidth - 240) + "," + (height + margin.bottom) + ")";});
+			.attr("transform", function(d, i) {return "translate(" + (svgwidth - 230) + "," + (height + (margin.bottom * 1.5)) + ")";});
 			//.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	
     	legend.append("rect")
@@ -176,6 +150,33 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.attr("dy", ".35em")
 			.style("text-anchor", "start")
 			.text(function(d) { return d; });
+
+			// draw the x-axis on the svg, rotate text to 45 degrees on mobile
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("id", "xaxis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis)        
+			.selectAll("text")
+				.style("text-anchor", "start")
+				.attr("dx", ".8em")
+				.attr("dy", ".15em")
+				.attr("transform", function(d) {
+					return "rotate(45)" 
+					});
+
+		// draw the y-axis on the svg, text on the outside on y-axis at middle
+		svg.append("g")
+			.attr("class", "y axis")
+			.attr("id", "yaxis")
+			.call(yAxis)
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", -50)
+			.attr("dx","-20em")
+			.attr("dy", ".71em")
+			.style("text-anchor", "middle")
+			.text("Student Population (#)");
 	}
 	else {
 		// regular screen, move the legend to the upper right of svg
@@ -197,6 +198,26 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.attr("dy", ".35em")
 			.style("text-anchor", "end")
 			.text(function(d) { return d; });
+
+		// draw the x-axis on the svg, text is horizontal on regular screen
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("id", "xaxis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis)        
+			.selectAll("text");
+
+		// draw the y-axis on the svg, text on the inside of y-axis at top
+		svg.append("g")
+			.attr("class", "y axis")
+			.attr("id", "yaxis")
+			.call(yAxis)
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 3)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Student Population (#)");
 	}
 	
 
