@@ -117,17 +117,9 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 				return tip;
 			});
 						
-	// define tooltips to work with the stacked bar chart (above)	
-	$('svg rect').tipsy({
-		opacity: 1, 
-		gravity: 'w', 
-		html: true
-	});
 
-	// draw the legend
-
-	//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
 	if ($(document).width() < mobiledefaultwidth) {
+		// draw the legend
     	// small screen, move the legend to the bottom and set it at start of x-axis
     	var svgwidth = $('.g-stacked-bar-chart').width();
 
@@ -151,7 +143,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.style("text-anchor", "start")
 			.text(function(d) { return d; });
 
-			// draw the x-axis on the svg, rotate text to 45 degrees on mobile
+		// draw the x-axis on the svg, rotate text to 45 degrees on mobile
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("id", "xaxis")
@@ -177,8 +169,16 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.attr("dy", ".71em")
 			.style("text-anchor", "middle")
 			.text("Student Population (#)");
+
+		// define tooltips to work with the stacked bar chart (above)	
+		$('svg rect').tipsy({
+			opacity: 1, 
+			gravity: $.fn.tipsy.autoBoundsCustom(175, 'w'), 
+			html: true
+		});
 	}
 	else {
+		// draw the legend
 		// regular screen, move the legend to the upper right of svg
 		var legend = svg.selectAll(".legend")
 			.data(color.domain().slice().reverse())
@@ -218,6 +218,13 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			.attr("dy", ".71em")
 			.style("text-anchor", "end")
 			.text("Student Population (#)");
+
+		// define tooltips to work with the stacked bar chart (above)	
+		$('svg rect').tipsy({
+			opacity: 1, 
+			gravity: $.fn.tipsy.autoBoundsCustom(300, 'w'), 
+			html: true
+		});
 	}
 	
 
@@ -244,7 +251,6 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	                school: d.school,
 	                state_id: +d.state_id
       			}, 
-         		type: "Feature", 
            		geometry: {
                		coordinates:[+d.longitude, +d.latitude], 
              		type:"Point"
@@ -254,83 +260,83 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 
  		return locdata;	
  	}
- 	var geoData = {type: "FeatureCollection", features: reformat(raw_data)};
+ 	var geoData = {data: reformat(raw_data)};
 
  	console.log(geoData)
-}); // close d3.js bracket
 
-// ---- FOR THE MAP ---- //
 
-// Set the map's boundaries  
-// SW 37.502194, -77.474207 (Richmond) 
-// NE 38.977587, -76.489984 (Annapolis)
-// C 38.527515, -76.971666 (La Plata)
+	// ---- FOR THE MAP ---- //
 
-var southWest = new L.LatLng(37.50, -77.47),
-	northEast = new L.LatLng(38.97, -76.49),
-	$bounds = new L.LatLngBounds(southWest, northEast);
+	// Set the map's boundaries  
+	// SW 37.502194, -77.474207 (Richmond) 
+	// NE 38.977587, -76.489984 (Annapolis)
+	// C 38.527515, -76.971666 (La Plata)
 
-var $minZoom = 10,
-	$maxZoom = 17;
+	var southWest = new L.LatLng(37.50, -77.47),
+		northEast = new L.LatLng(38.97, -76.49),
+		$bounds = new L.LatLngBounds(southWest, northEast);
 
-// build the map in the map div
-var $map = new L.Map("map", {
-	center: new L.LatLng(38.527515, -76.971666),
-	zoom: 10,
-	minZoom: $minZoom,
-	maxZoom: $maxZoom,
-	maxBounds: $bounds,
-	touchZoom: false,
-	doubleClickZoom: false,
-	tapTolerance: 30
-});
+	var $minZoom = 10,
+		$maxZoom = 17;
 
-var url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
-
-$map.addLayer(layer);
-
-// function to set position of hover box on map points
-function getPos(event) {
-	posX = event.clientX;
-	posY = event.clientY;
-	$('#map-hover-box').css({
-		'left': posX - ($('#map-hover-box').outerWidth(true) / 2),
-		'top': posY + 40
+	// build the map in the map div
+	var $map = new L.Map("map", {
+		center: new L.LatLng(38.527515, -76.971666),
+		zoom: 10,
+		minZoom: $minZoom,
+		maxZoom: $maxZoom,
+		maxBounds: $bounds,
+		touchZoom: false,
+		doubleClickZoom: false,
+		tapTolerance: 30
 	});
-}
 
-// function to show hover box on hover of map points
-function initHover() {
-	$('#map-hover-box').show();
-	$(document).bind('mousemove', getPos);
-}
+	var url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
 
-// function to hide hover box on hover of map points
-function endHover() {
-	$('#map-hover-box').hide();
-	$(document).unbind('mousemove', getPos);
-}
+	$map.addLayer(layer);
 
-dot = L.CircleMarker.extend({
-	options: {
-		id: ''
+	// function to set position of hover box on map points
+	function getPos(event) {
+		posX = event.clientX;
+		posY = event.clientY;
+		$('#map-hover-box').css({
+			'left': posX - ($('#map-hover-box').outerWidth(true) / 2),
+			'top': posY + 40
+		});
 	}
-});
 
-focuser = new L.CircleMarker([0, 0], {
-	stroke: true,
-	color: '#000',
-	weight: 4,
-	opacity: 1,
-	fillOpacity: '0',
-	SVG: true,
-	VML: true,
-	radius: 12,
-});
+	// function to show hover box on hover of map points
+	function initHover() {
+		$('#map-hover-box').show();
+		$(document).bind('mousemove', getPos);
+	}
 
-focuser.addTo($map);
+	// function to hide hover box on hover of map points
+	function endHover() {
+		$('#map-hover-box').hide();
+		$(document).unbind('mousemove', getPos);
+	}
+
+	// dummy dot and focuser to just create the variables
+	dot = L.CircleMarker.extend({
+		options: {
+			id: ''
+		}
+	});
+
+	focuser = new L.CircleMarker([0, 0], {
+		stroke: true,
+		color: '#000',
+		weight: 4,
+		opacity: 1,
+		fillOpacity: '0',
+		SVG: true,
+		VML: true,
+		radius: 12,
+	}).addTo($map);
+
 
 /*
 order = 0
@@ -374,9 +380,11 @@ $.each(schools, function(i) {
 			$layer.bringToBack();
 			endHover();
 		}).addTo($map);
-		
+		/*
 		$('#school-list > ul').append('<li class="listing" data-order="'+order+'" id="'+i+'"><h3 class="rob heavier">'+schools[i].info.name+'</h3></li>')
+		
 		order++
 	}
 });
 */
+}); // close d3.js bracket
