@@ -279,8 +279,8 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 	var $minZoom = 10,
 		$maxZoom = 17;
 
-	// build the map in the map div
-	var $map = new L.Map("map", {
+	// build the map in the map-container div
+	var $map = new L.Map("map-container", {
 		center: new L.LatLng(38.527515, -76.971666),
 		zoom: 10,
 		minZoom: $minZoom,
