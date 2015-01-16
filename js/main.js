@@ -45,6 +45,7 @@ var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left");
 
+
 // adds the svg canvas to the g-stacked-bar-chart div
 var svg = d3.select(".g-stacked-bar-chart")
 	.append("svg")
@@ -55,10 +56,169 @@ var svg = d3.select(".g-stacked-bar-chart")
 		.attr("transform", 
 			"translate(" + margin.left + "," + margin.top + ")");
 
+
 // open d3.js bracket
 // bind the data file 
 d3.csv("data/ccps_data.csv", function (error, raw_data){
+	raw_data_again = raw_data;
+	redraw();
 
+// **********************************************************************************
+// ************************ BEGINNING OF THE SCHOOL LEVEL ***************************
+// **********************************************************************************
+
+/*	function reformat (array) {
+		var locdata = [];
+  		array.map(function (d){
+			locdata.push({
+ 				properties: {
+	                white: +d.white,
+	                black: +d.black,
+	                hispanic: +d.hispanic,
+	                other: +d.other,
+	                year: d.year,
+	                school: d.school,
+	                state_id: +d.state_id
+      			}, 
+           		geometry: {
+               		coordinates:[+d.longitude, +d.latitude], 
+             		type:"Point"
+          		}
+      		});
+ 		});
+*/
+	function reformat (array) {
+		var locdata = [];
+  		array.map(function (d){
+			locdata.push({
+				id: +d.state_id,
+ 				info: {
+	                school: d.school,
+	                lat: +d.latitude,
+	                lon: +d.longitude
+      			}
+      		});
+ 		});
+ 		return locdata;	
+ 	}
+ 	
+ 	var geoData = reformat(raw_data)
+ 	console.log(geoData)
+
+
+	// ---- FOR THE MAP ---- //
+
+	// Set the map's boundaries  
+	// SW 37.502194, -77.474207 (Blacksburg) ; NE 38.977587, -76.489984 (Trenton) ; C 38.527515, -76.971666 (La Plata)
+
+	var southWest = new L.LatLng(37.2304,-80.429),
+		northEast = new L.LatLng(40.217,-74.774),
+		$bounds = new L.LatLngBounds(southWest, northEast);
+
+	var $minZoom = 10,
+		$maxZoom = 17;
+
+	// build the map in the map-container div
+	var $map = new L.Map("map-container", {
+		center: new L.LatLng(38.527515, -76.971666),
+		zoom: 10,
+		minZoom: $minZoom,
+		maxZoom: $maxZoom,
+		maxBounds: $bounds,
+		touchZoom: false,
+		doubleClickZoom: false,
+		tapTolerance: 30
+	});
+
+	var url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
+
+	$map.addLayer(layer);
+
+	// function to set position of hover box on map points
+	function getPos(event) {
+		posX = event.clientX;
+		posY = event.clientY;
+		$('#map-hover-box').css({
+			'left': posX - ($('#map-hover-box').outerWidth(true) / 2),
+			'top': posY + 40
+		});
+	}
+
+	// function to show hover box on hover of map points
+	function initHover() {
+		$('#map-hover-box').show();
+		$(document).bind('mousemove', getPos);
+	}
+
+	// function to hide hover box on hover of map points
+	function endHover() {
+		$('#map-hover-box').hide();
+		$(document).unbind('mousemove', getPos);
+	}
+
+	// dummy dot and focuser to just create the variables
+	dot = L.CircleMarker.extend({
+		options: {
+			id: ''
+		}
+	});
+
+	focuser = new L.CircleMarker([0, 0], {
+		stroke: true,
+		color: '#000',
+		weight: 4,
+		opacity: 1,
+		fillOpacity: '0',
+		SVG: true,
+		VML: true,
+		radius: 12,
+	}).addTo($map);
+
+	$.each(geoData, function(i) {
+		if (geoData[i].info) {
+			$curr = new dot([geoData[i].info.lat, geoData[i].info.lon], {
+				stroke: true,
+				color: '#777',
+				weight: 1,
+				opacity: 1,
+				fillColor: '#777',
+				fillOpacity: '0.6',
+				SVG: true,
+				VML: true,
+				radius: 5,
+				id: i
+			}).on('click', function() {
+				$('.miss').removeClass('miss')
+				$('#'+i).trigger('click');
+			}).on('tap', function() {
+				$('.miss').removeClass('miss')
+				$('#'+i).trigger('click');
+			}).on('mouseover', function(e) {
+				initHover();
+				$layer = e.target;
+				$layer.setStyle({
+					weight: 3,
+					color: '#000'
+				});
+				$layer.bringToFront();
+				$('#map-hover-box').text(geoData[i].info.school);
+			}).on('mouseout', function(e) {
+				var $layer = e.target;
+				$layer.setStyle({
+					weight: 1,
+					color: '#777'
+				});
+				$layer.bringToBack();
+				endHover();
+			}).addTo($map);
+		}
+	});
+
+});
+
+function redraw() {
 	// roll the raw data up by year and return the summarized value by race as its own object property
 	var data = d3.nest()
 		.key(function(d) {return d.short_year;})
@@ -71,7 +231,7 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 				hispanic: d3.sum(d, function(g) {return g.hispanic;})
 			};
 		})
-		.entries(raw_data)
+		.entries(raw_data_again)
 		.map(function (d) {
 			return {year: d.key, white: d.values.white, black: d.values.black, other: d.values.other, hispanic: d.values.hispanic};
 		});
@@ -226,165 +386,11 @@ d3.csv("data/ccps_data.csv", function (error, raw_data){
 			html: true
 		});
 	}
-	
+
 
 // **********************************************************************************
 // *************************** END OF THE COUNTY LEVEL ******************************
 // **********************************************************************************
 
-// ----------------------------------------------------------------------------------
 
-// **********************************************************************************
-// ************************ BEGINNING OF THE SCHOOL LEVEL ***************************
-// **********************************************************************************
-
-	function reformat (array) {
-		var locdata = [];
-  		array.map(function (d){
-			locdata.push({
- 				properties: {
-	                white: +d.white,
-	                black: +d.black,
-	                hispanic: +d.hispanic,
-	                other: +d.other,
-	                year: d.year,
-	                school: d.school,
-	                state_id: +d.state_id
-      			}, 
-           		geometry: {
-               		coordinates:[+d.longitude, +d.latitude], 
-             		type:"Point"
-          		}
-      		});
- 		});
-
- 		return locdata;	
- 	}
- 	var geoData = {data: reformat(raw_data)};
-
- 	console.log(geoData)
-
-
-	// ---- FOR THE MAP ---- //
-
-	// Set the map's boundaries  
-	// SW 37.502194, -77.474207 (Richmond) 
-	// NE 38.977587, -76.489984 (Annapolis)
-	// C 38.527515, -76.971666 (La Plata)
-
-	var southWest = new L.LatLng(37.50, -77.47),
-		northEast = new L.LatLng(38.97, -76.49),
-		$bounds = new L.LatLngBounds(southWest, northEast);
-
-	var $minZoom = 10,
-		$maxZoom = 17;
-
-	// build the map in the map-container div
-	var $map = new L.Map("map-container", {
-		center: new L.LatLng(38.527515, -76.971666),
-		zoom: 10,
-		minZoom: $minZoom,
-		maxZoom: $maxZoom,
-		maxBounds: $bounds,
-		touchZoom: false,
-		doubleClickZoom: false,
-		tapTolerance: 30
-	});
-
-	var url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
-
-	$map.addLayer(layer);
-
-	// function to set position of hover box on map points
-	function getPos(event) {
-		posX = event.clientX;
-		posY = event.clientY;
-		$('#map-hover-box').css({
-			'left': posX - ($('#map-hover-box').outerWidth(true) / 2),
-			'top': posY + 40
-		});
-	}
-
-	// function to show hover box on hover of map points
-	function initHover() {
-		$('#map-hover-box').show();
-		$(document).bind('mousemove', getPos);
-	}
-
-	// function to hide hover box on hover of map points
-	function endHover() {
-		$('#map-hover-box').hide();
-		$(document).unbind('mousemove', getPos);
-	}
-
-	// dummy dot and focuser to just create the variables
-	dot = L.CircleMarker.extend({
-		options: {
-			id: ''
-		}
-	});
-
-	focuser = new L.CircleMarker([0, 0], {
-		stroke: true,
-		color: '#000',
-		weight: 4,
-		opacity: 1,
-		fillOpacity: '0',
-		SVG: true,
-		VML: true,
-		radius: 12,
-	}).addTo($map);
-
-
-/*
-order = 0
-$.each(schools, function(i) {
-
-	if (schools[i].info) {
-		$curr = new dot([schools[i].info.lat, schools[i].info.lon], {
-			stroke: true,
-			color: getCat(schools[i]),
-			weight: 1,
-			opacity: 1,
-			fillColor: getCat(schools[i]),
-			fillOpacity: '0.6',
-			SVG: true,
-			VML: true,
-			radius: 5,
-			id: i
-		}).on('click', function() {
-			$('#srcbox').val('')
-			$('.miss').removeClass('miss')
-			$('#'+i).trigger('click');
-		}).on('tap', function() {
-			$('#srcbox').val('')
-			$('.miss').removeClass('miss')
-			$('#'+i).trigger('click');
-		}).on('mouseover', function(e) {
-			initHover();
-			$layer = e.target;
-			$layer.setStyle({
-				weight: 3,
-				color: '#000'
-			});
-			$layer.bringToFront();
-			$('#hover-box').text(schools[i].info.name);
-		}).on('mouseout', function(e) {
-			var $layer = e.target;
-			$layer.setStyle({
-				weight: 1,
-				color: '#aaa'
-			});
-			$layer.bringToBack();
-			endHover();
-		}).addTo($map);
-		/*
-		$('#school-list > ul').append('<li class="listing" data-order="'+order+'" id="'+i+'"><h3 class="rob heavier">'+schools[i].info.name+'</h3></li>')
-		
-		order++
-	}
-});
-*/
-}); // close d3.js bracket
+} // close the redraw function	
