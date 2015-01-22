@@ -1,4 +1,4 @@
-state_id,school,year,short_year,latitude,longitude,black,hispanic,white,other
+school_id,school,year,short_year,latitude,longitude,black,hispanic,white,other
 80612,ARTHUR MIDDLETON ELEMENTARY SCHOOL,2002-2003,02-03,38.6025938,-76.921812,259,30,224,25
 80613,BENJAMIN STODDERT MIDDLE SCHOOL,2002-2003,02-03,38.6015661,-76.8975434,393,20,352,25
 80622,BERRY ELEMENTARY SCHOOL,2002-2003,02-03,38.647895,-76.9595649,358,24,388,56

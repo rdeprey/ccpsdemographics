@@ -169,6 +169,10 @@ html, body {
     text-align: center;
     background-color: #DDD;
 }
+.summary-tooltip { 
+	display: inline-block; 
+	width: 180px;
+} 
 
 /* tool tip stuff + tipsy.js stuff*/
 .tip1 {
@@ -375,7 +379,6 @@ svg text {
 	z-index: 9999;
 	line-height: 1.3em;
 }
-
 /* Social Bookmark Icons */
 
 .social-bookmarks {
@@ -485,9 +488,11 @@ svg text {
 	.about-content {
 		font-weight: 400;
 	}
+	.summary-tooltip { 
+		width: 140px;
+	} 
 	.tipsy-inner { 
 		border-width: medium;
-		max-width: 270px; 
 		padding: 8px;
 	}
   	.tip1 {

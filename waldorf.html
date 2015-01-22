@@ -21,13 +21,14 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:300,500,900">
 
-<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, Modernizr) -->
+<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq) -->
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
 <script type = "text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script type = "text/javascript" src="./js/leaflet.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/d3.v3.min.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
+<script type = "text/javascript" src="./js/jlinq-3.0.1.js"></script>
 </head>
 
 
@@ -85,15 +86,16 @@
 					<h4 class="upper fat ral black">Demographics at the county level</h4>
 					<p class="small gray rob">The student body in Charles County public schools has seen an increase in minorities from the '02-03 school year to '11-12 school year and overall student enrollment has slightly increased within that ten year span. The African-American and Hispanic population has seen a 43% and 150% rise, respectively, in that period.  The white population, in that same time frame, has decreased 33% and had gradual decreases year over year.<p>
 					<p class="small black rob" style="text-align:center"> Hover over the chart to explore the overall demographics breakdown.</p>
-					<!-- graph entered here -->
-					<div class="g-stacked-bar-chart"></div>
+					<!-- d3 graph entered here -->
+					<div id="g-stacked-bar-chart"></div>
 				</div>
 				<br>
 				<div id="interactive" class="g-component">
 					<h4 class="upper fat ral black">Demographics by each schools</h4>
 					<p class="small gray rob">Of the 36 schools in Charles County, 26 of them entered the '12-13 school year with non-Hispanic white students as a minority group.  Of those schools, only two (Smallwood Middle and Matula Elementary) had an African-American student population of less than 50%.  19 schools had at least five percent of their student body represented with Hispanic background entering that same school year, a stark contrast to only one (Middleton Elementary) in '02-03.<p>
 					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
-					<div id="map-container"> <!-- MAP GOES IN HERE --> </div>
+					<!-- leaflet map entered here -->
+					<div id="map-container"> </div>
 				</div>
 				<br>
 				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span>National Center for Education Statistics
@@ -104,8 +106,7 @@
 			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div>	
 
 			<!-- main javascript that does everything -->
-			<script src="./js/main.js">
-			</script>
+			<script src="./js/main.js"></script>
 
 		</div> <!-- cloes the row -->
 	</div> <!-- closes the content -->
