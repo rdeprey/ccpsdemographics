@@ -4,22 +4,12 @@
 // ************************ BEGINNING OF THE COUNTY LEVEL ***************************
 // **********************************************************************************
 
-// set the frame and margin for the svg
-var margin = {top: 25, right: 50, bottom: 25, left: 50},
-	//browserwidth = d3.select(".g-stacked-bar-chart").node().clientWidth,
-	browserwidth = parseInt(d3.select('#g-stacked-bar-chart').style('width'), 10),
-	height = 420 - margin.top - margin.bottom;
+// set padding/margin for the svg
+var margin = {top: 25, right: 50, bottom: 25, left: 50}
 
+// set arbritary values to determine if this website is going mobile or not
 var mobiledefaultwidth = 780,
 	mobiledefaultheight = 480;
-
-//if ($(window).width() < mobiledefaultwidth || $(window).height() < mobiledefaultheight) {
-if ($(window).width() < mobiledefaultwidth) {
-	var width = browserwidth;
-}
-else{
-	var width = browserwidth - margin.left - margin.right;
-}
 	
 // colors for the chart and map
 var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
@@ -29,37 +19,8 @@ var c = ["#98abc5", "#8a89a6", "#a05d56", "#ff8c00"]
 var color = d3.scale.ordinal()
     .range(c);
 
-// set the ranges
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, (width - (margin.right))], .2);
-					
-var y = d3.scale.linear()
-	.rangeRound([height, 0]);
-	
-// define the axes	
-var xAxis = d3.svg.axis()
-	.scale(x)
-	.orient("bottom");
-	//.tickFormat(d3.time.format("%H"));
-
-var yAxis = d3.svg.axis()
-	.scale(y)
-	.orient("left");
-
-
-// adds the svg canvas to the g-stacked-bar-chart div
-var svg = d3.select("#g-stacked-bar-chart")
-	.append("svg")
-		//.attr("width", width + margin.left + margin.right)
-		.attr("width", "100%")
-		.attr("height", height + (margin.top * 3))
-	.append("g")
-		.attr("transform", 
-			"translate(" + margin.left + "," + margin.top + ")");
-
-
 // open d3.js bracket
-// bind the data file 
+// bind the data file, assign raw_data as the data array, and run the two draw functions
 d3.csv("data/ccps_data.csv", function (error, csv_file){
 	raw_data = csv_file;
 	
@@ -69,6 +30,46 @@ d3.csv("data/ccps_data.csv", function (error, csv_file){
 });
 
 function drawSummaryChart() {
+
+	//var browserwidth = d3.select("#g-stacked-bar-chart").node().clientWidth,
+	var	browserwidth = parseInt(d3.select('#g-stacked-bar-chart').style('width'), 10),
+		height = 420 - margin.top - margin.bottom;
+
+	if ($(window).width() < mobiledefaultwidth) {
+		var width = browserwidth;
+	}
+	else {
+		var width = browserwidth - margin.left - margin.right;
+	}
+
+	// set the ranges
+	var x = d3.scale.ordinal()
+	    .rangeRoundBands([0, (width - (margin.right))], .2);
+						
+	var y = d3.scale.linear()
+		.rangeRound([height, 0]);
+		
+	// define the axes	
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom");
+		//.tickFormat(d3.time.format("%H"));
+
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.orient("left");
+
+
+	// adds the svg canvas to the g-stacked-bar-chart div
+	var svg = d3.select("#g-stacked-bar-chart")
+		.append("svg")
+			//.attr("width", width + margin.left + margin.right)
+			.attr("width", "100%")
+			.attr("height", height + (margin.top * 3))
+		.append("g")
+			.attr("transform", 
+				"translate(" + margin.left + "," + margin.top + ")");
+
 	// roll the raw data up by year and return the summarized value by race as its own object property
 	var data = d3.nest()
 		.key(function(d) {return d.short_year;})
@@ -239,7 +240,7 @@ function drawSummaryChart() {
 			html: true
 		});
 	}
-} // close the redraw function	
+} // close the drawSummaryChart function	
 
 // **********************************************************************************
 // *************************** END OF THE COUNTY LEVEL ******************************
@@ -302,7 +303,7 @@ function drawDetailMap() {
 				});
 			}
 		}
-  		var test = jlinq.from(schools)
+  		var BeforeAfterDataSet = jlinq.from(schools)
 			.join(
 				before,
 				"before",
@@ -315,14 +316,14 @@ function drawDetailMap() {
 				"school_id")
 			.select();
 
-			return test;
+			return BeforeAfterDataSet;
 
  	} // close drawDetailMap function
 
 
  	// run the reformat function on the raw data to transform data for the leaflet part
  	var school_data = reformat(raw_data)
- 	console.log(school_data)
+ 	//console.log(school_data)
 
 
 	// Set the map's boundaries  
@@ -330,28 +331,28 @@ function drawDetailMap() {
 
 	var southWest = new L.LatLng(37.2304,-80.429),
 		northEast = new L.LatLng(40.217,-74.774),
-		$bounds = new L.LatLngBounds(southWest, northEast);
+		bounds = new L.LatLngBounds(southWest, northEast);
 
-	var $minZoom = 10,
-		$maxZoom = 17;
+	var minZoom = 9,
+		maxZoom = 17;
 
 	// build the map in the map-container div
-	var $map = new L.Map("map-container", {
+	var map = new L.Map('map-container', {
 		center: new L.LatLng(38.527515, -76.971666),
 		zoom: 10,
-		minZoom: $minZoom,
-		maxZoom: $maxZoom,
-		maxBounds: $bounds,
+		minZoom: minZoom,
+		maxZoom: maxZoom,
+		maxBounds: bounds,
 		touchZoom: false,
 		doubleClickZoom: false,
 		tapTolerance: 30
 	});
 
-	var url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var attrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var layer = new L.TileLayer(url, {minZoom: $minZoom, maxZoom: $maxZoom, attribution: attrib});		
+	var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var attrib ='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var layer = new L.TileLayer(url, {minZoom: minZoom, maxZoom: maxZoom, attribution: attrib});		
 
-	$map.addLayer(layer);
+	map.addLayer(layer);
 
 	// function to set position of hover box on map points
 	function getPos(event) {
@@ -391,7 +392,7 @@ function drawDetailMap() {
 		SVG: true,
 		VML: true,
 		radius: 12,
-	}).addTo($map);
+	}).addTo(map);
 
 	$.each(school_data, function(i) {
 		if (school_data[i].info) {
@@ -408,25 +409,66 @@ function drawDetailMap() {
 				id: i
 			}).on('mouseover', function(e) {
 				initHover();
-				$layer = e.target;
-				$layer.setStyle({
+				layer = e.target;
+				layer.setStyle({
 					weight: 3,
 					color: '#000'
 				});
-				$layer.bringToFront();
+				layer.bringToFront();
 				$('#map-hover-box').text(school_data[i].info.name);
+				//console.log(school_data[i].before[0].white)
 			}).on('mouseout', function(e) {
-				var $layer = e.target;
-				$layer.setStyle({
+				var layer = e.target;
+				layer.setStyle({
 					weight: 1,
 					color: '#777'
 				});
-				$layer.bringToBack();
+				layer.bringToBack();
 				endHover();
-			}).addTo($map);
+			}).addTo(map);
 		}
 	});
+
 } // closes the draw function
 
 
-// find a way to work in d3 responsive svg in here, should be a d3.select(window).on('resize', resize);
+// find a way to work resize the svg in here, should be a d3.select(window).on('resize', resize);
+d3.select(window).on('resize', resize); 
+
+function resize() {
+    // update width
+    browserwidth = parseInt(d3.select('#g-stacked-bar-chart').style('width'), 10);
+
+	if ($(window).width() < mobiledefaultwidth) {
+		var width = browserwidth;
+	}
+	else {
+		var width = browserwidth - margin.left - margin.right;
+	}
+
+	if ($(window).height() < mobiledefaultheight) {
+		var height = mobiledefaultheight;
+	}
+	else {
+		var height = 420 - margin.top - margin.bottom;
+	}
+
+	// reset the ranges based on new width size
+	var x_resize = d3.scale.ordinal().rangeRoundBands([0, (width - (margin.right))], .2);
+	var y_resize = d3.scale.linear().rangeRound([height, 0]);
+		
+	// redefine the axes based on new width size	
+	var xAxis_resize = d3.svg.axis().scale(x_resize).orient("top");
+	var yAxis_resize = d3.svg.axis().scale(y_resize).orient("left");
+
+	/*
+    // resize the chart  
+    d3.selectAll('.rect')
+        .attr('width', x_resize.rangeBand());
+
+    // update axes
+    d3.select('#xaxis').call(xAxis_resize);
+    d3.select('#yaxis').call(yAxis_resize);
+    */
+
+}
