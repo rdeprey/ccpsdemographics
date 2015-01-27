@@ -370,7 +370,7 @@ svg text {
 }
 #map-hover-box {
 	position: fixed;
-	width: 100px;
+	width: 300px;
 	background: #fff;
 	color: #000;
 	padding: 8px;

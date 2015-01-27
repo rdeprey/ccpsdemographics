@@ -297,8 +297,13 @@ function drawDetailMap() {
 				school_id: item.school_id,
 				info: {
 					name: item.school,
+					addr: item.address,
+					city: item.city,
+					state: item.state,
+					zip: item.zip,
+					level: item.level,
 					lat: +item.latitude,
-					lon: +item.longitude
+					lon: +item.longitude,
 				}
 				});
 			}
@@ -318,13 +323,10 @@ function drawDetailMap() {
 
 			return BeforeAfterDataSet;
 
- 	} // close drawDetailMap function
-
+ 	} // closes reformat function
 
  	// run the reformat function on the raw data to transform data for the leaflet part
- 	var school_data = reformat(raw_data)
- 	//console.log(school_data)
-
+ 	var school_data = reformat(raw_data);
 
 	// Set the map's boundaries  
 	// SW 37.2304,-80.429 (Blacksburg) ; NE 40.217,-74.774 (Trenton) ; C 38.527515, -76.971666 (La Plata)
@@ -333,15 +335,15 @@ function drawDetailMap() {
 		northEast = new L.LatLng(40.217,-74.774),
 		bounds = new L.LatLngBounds(southWest, northEast);
 
-	var minZoom = 9,
-		maxZoom = 17;
+	var minZ = 9,
+		maxZ = 17;
 
 	// build the map in the map-container div
 	var map = new L.Map('map-container', {
 		center: new L.LatLng(38.527515, -76.971666),
 		zoom: 10,
-		minZoom: minZoom,
-		maxZoom: maxZoom,
+		minZoom: minZ,
+		maxZoom: maxZ,
 		maxBounds: bounds,
 		touchZoom: false,
 		doubleClickZoom: false,
@@ -350,9 +352,30 @@ function drawDetailMap() {
 
 	var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var attrib ='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var layer = new L.TileLayer(url, {minZoom: minZoom, maxZoom: maxZoom, attribution: attrib});		
+	var layer = new L.TileLayer(url, {minZoom: minZ, maxZoom: maxZ, attribution: attrib});		
 
+	// add the OSM layer on top of the Leaflet Map
 	map.addLayer(layer);
+
+	function getSchoolLevel(array) {
+		if (array.info.level == 'E') {
+			// brown
+			school_colors = '#A34E24'
+		}
+		else if (array.info.level == 'M') {
+			// orange
+			school_colors = '#EA7D24'
+		}
+		else if (array.info.level == 'H') {
+			// green
+			school_colors = '#796E24'
+		}
+		else {
+			// purple
+			school_colors = '#9B539C'
+		}
+		return school_colors;
+	}
 
 	// function to set position of hover box on map points
 	function getPos(event) {
@@ -376,33 +399,23 @@ function drawDetailMap() {
 		$(document).unbind('mousemove', getPos);
 	}
 
-	// dummy dot and focuser to just create the variables
+	// dummy dot to just create the variable
 	dot = L.CircleMarker.extend({
 		options: {
 			id: ''
 		}
 	});
 
-	focuser = new L.CircleMarker([0, 0], {
-		stroke: true,
-		color: '#000',
-		weight: 4,
-		opacity: 1,
-		fillOpacity: '0',
-		SVG: true,
-		VML: true,
-		radius: 12,
-	}).addTo(map);
-
 	$.each(school_data, function(i) {
 		if (school_data[i].info) {
 			$curr = new dot([school_data[i].info.lat, school_data[i].info.lon], {
 				stroke: true,
-				color: '#777',
+				color: '#222',
 				weight: 1,
 				opacity: 1,
-				fillColor: '#777',
-				fillOpacity: '0.6',
+				//fillColor: '#777',
+				fillColor: getSchoolLevel(school_data[i]),
+				fillOpacity: '0.9',
 				SVG: true,
 				VML: true,
 				radius: 5,
@@ -415,13 +428,15 @@ function drawDetailMap() {
 					color: '#000'
 				});
 				layer.bringToFront();
-				$('#map-hover-box').text(school_data[i].info.name);
+				$('#map-hover-box').html("<b>" + school_data[i].info.name + "</b><br>"
+						 + school_data[i].info.addr + "<br>" 
+						 + school_data[i].info.city + ", " + school_data[i].info.state + "&nbsp" + school_data[i].info.zip + "<br>");
 				//console.log(school_data[i].before[0].white)
 			}).on('mouseout', function(e) {
 				var layer = e.target;
 				layer.setStyle({
 					weight: 1,
-					color: '#777'
+					color: '#222'
 				});
 				layer.bringToBack();
 				endHover();

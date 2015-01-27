@@ -24,7 +24,7 @@
 <!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq) -->
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
-<script type = "text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script type = "text/javascript" src="./js/bootstrap.min.js"></script>
 <script type = "text/javascript" src="./js/leaflet.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/d3.v3.min.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
@@ -73,9 +73,8 @@
 			</script>
 			<!--  end js for the about us box -->	
 
-			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div>
-			<div class="col-xs-14 col-sm-10 col-mid-10 col-lg-8"> <!-- center column -->
-
+			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div> <!-- left column (empty for padding purposes) -->
+			<div class="col-xs-14 col-sm-10 col-mid-10 col-lg-8"> <!-- opens the center column -->
 				<!-- begin introduction -->
 				<div id="briefsummary">
 					<h3 class="upper ral heavier black">The Changing Demographics of Charles County Public Schools</h3>
@@ -96,14 +95,14 @@
 					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
 					<!-- leaflet map entered here -->
 					<div id="map-container"> </div>
+					<div id="map-hover-box" class="small ral"></div> <!-- empty div for the map popup box -->
 				</div>
 				<br>
-				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span>National Center for Education Statistics
+				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a>
 				</p>
-
 			</div>	<!-- closes the center column-->
 
-			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div>	
+			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div> <!-- right column (empty for padding purposes) -->
 
 			<!-- main javascript that does everything -->
 			<script src="./js/main.js"></script>
