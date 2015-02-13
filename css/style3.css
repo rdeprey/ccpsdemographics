@@ -358,19 +358,26 @@ svg text {
 	display: block;
 }
 
-/* For the map */
-
+/* For the map and school list*/
+#school-breakdown > div {  
+	border: 1px solid #ccc; 
+	border-radius: 3px 
+}
 #map-container {
 	margin-right: -2px;
 	border-right: 2px solid #aaa;
-	width: 100%;
+	width: 50%;
 	float: left;
-	height: 600px;
+	height: 500px;
 	position: relative;
+}
+#map { 
+	width: 100%; 
+	height: 100%;
 }
 #map-hover-box {
 	position: fixed;
-	width: 300px;
+	width: 250px;
 	background: #fff;
 	color: #000;
 	padding: 8px;
@@ -378,6 +385,44 @@ svg text {
 	display: none;
 	z-index: 9999;
 	line-height: 1.3em;
+}
+#school-list-container { 
+	width: 50%; 
+	height: 500px; 
+	float: right; 
+	background: #f8f5f2;
+}
+#school-list {
+	border-top: 2px solid #aaa;
+	width: 100%;
+	height: 500px;
+	overflow-y: scroll;
+	box-shadow: inset 0px 0px 10px #ccc;
+}
+#school-list > ul {
+	padding-left: 0px;
+	list-style-type: none;
+}
+#school-list > ul > li {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	cursor: pointer;
+	border-bottom: 1px solid #aaa;
+	list-style-type: none;
+}
+#school-list > ul > li:hover { 
+	background: #fff 
+}
+.active-listing { 
+	background: #fff; 
+	display: block !important; 
+	cursor: default !important; 
+}
+.active-listing .inner { 
+	padding-bottom: 8px; 
+	font-size: 13px;
 }
 /* Social Bookmark Icons */
 
@@ -514,10 +559,16 @@ svg text {
 		border-right: none !important; 
 		border-bottom: 3px solid #aaa
 	}
-	#list-container { 
+	#map-hover-box {
+		width: 180px;
+	}
+	#school-list-container { 
 		width: 100%; 
-		height: 400px; 
+		height: 350px; 
 		float: none !important
+	}
+	#school-list { 
+		height: 350px; 
 	}
     .carousel {
         position: absolute;

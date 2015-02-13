@@ -233,6 +233,7 @@ function drawSummaryChart() {
 			.style("text-anchor", "end")
 			.text("Student Population (#)");
 
+
 		// define tooltips to work with the stacked bar chart (above)	
 		$('svg rect').tipsy({
 			opacity: 1, 
@@ -260,28 +261,32 @@ function drawDetailMap() {
 	function reformat (array) {
 
 		var before = jLinq.from(array)
-			.equals("year", "2002-2003")
+			.equals("short_year", "02-03")
 			.select(
 				function(d){
 					return {
 						school_id: d.school_id,
+						short_year: d.short_year,
 						white: +d.white,
 						black: +d.black,
 						other: +d.other,
-						hispanic: +d.hispanic
+						hispanic: +d.hispanic,
+						total: (+d.white) + (+d.black) + (+d.other) + (+d.hispanic)
 					}
 				});
 
 		var after = jLinq.from(array)
-			.equals("year", "2011-2012")
+			.equals("short_year", "11-12")
 			.select(
 				function(d){
 					return {
 						school_id: d.school_id,
+						short_year: d.short_year,
 						white: +d.white,
 						black: +d.black,
 						other: +d.other,
-						hispanic: +d.hispanic
+						hispanic: +d.hispanic,
+						total: (+d.white) + (+d.black) + (+d.other) + (+d.hispanic)
 					}
 				});
 
@@ -297,7 +302,7 @@ function drawDetailMap() {
 				school_id: item.school_id,
 				info: {
 					name: item.school,
-					addr: item.address,
+					address: item.address,
 					city: item.city,
 					state: item.state,
 					zip: item.zip,
@@ -328,6 +333,7 @@ function drawDetailMap() {
  	// run the reformat function on the raw data to transform data for the leaflet part
  	var school_data = reformat(raw_data);
 
+
 	// Set the map's boundaries  
 	// SW 37.2304,-80.429 (Blacksburg) ; NE 40.217,-74.774 (Trenton) ; C 38.527515, -76.971666 (La Plata)
 
@@ -339,7 +345,7 @@ function drawDetailMap() {
 		maxZ = 17;
 
 	// build the map in the map-container div
-	var map = new L.Map('map-container', {
+	var $map = new L.Map('map', {
 		center: new L.LatLng(38.527515, -76.971666),
 		zoom: 10,
 		minZoom: minZ,
@@ -355,7 +361,7 @@ function drawDetailMap() {
 	var layer = new L.TileLayer(url, {minZoom: minZ, maxZoom: maxZ, attribution: attrib});		
 
 	// add the OSM layer on top of the Leaflet Map
-	map.addLayer(layer);
+	$map.addLayer(layer);
 
 	function getSchoolLevel(array) {
 		if (array.info.level == 'E') {
@@ -383,7 +389,7 @@ function drawDetailMap() {
 		posY = event.clientY;
 		$('#map-hover-box').css({
 			'left': posX - ($('#map-hover-box').outerWidth(true) / 2),
-			'top': posY + 40
+			'top': posY + 15
 		});
 	}
 
@@ -400,12 +406,25 @@ function drawDetailMap() {
 	}
 
 	// dummy dot to just create the variable
-	dot = L.CircleMarker.extend({
+	dot = L.CircleMarker.extend([0, 0], {
 		options: {
 			id: ''
-		}
+		}		
 	});
 
+	//dummy zoom dot to just create the variable
+	zoomDot = new L.CircleMarker([0, 0], {
+		stroke: true,
+		color: '#000',
+		weight: 4,
+		opacity: 1,
+		fillOpacity: '0',
+		SVG: true,
+		VML: true,
+		radius: 12,
+	}).addTo($map);
+
+	order = 0
 	$.each(school_data, function(i) {
 		if (school_data[i].info) {
 			$curr = new dot([school_data[i].info.lat, school_data[i].info.lon], {
@@ -420,6 +439,10 @@ function drawDetailMap() {
 				VML: true,
 				radius: 5,
 				id: i
+			}).on('click', function() {
+				$('#' + i).trigger('click');
+			}).on('tap', function() {
+				$('#' + i).trigger('click');
 			}).on('mouseover', function(e) {
 				initHover();
 				layer = e.target;
@@ -429,7 +452,7 @@ function drawDetailMap() {
 				});
 				layer.bringToFront();
 				$('#map-hover-box').html("<b>" + school_data[i].info.name + "</b><br>"
-						 + school_data[i].info.addr + "<br>" 
+						 + school_data[i].info.address + "<br>" 
 						 + school_data[i].info.city + ", " + school_data[i].info.state + "&nbsp" + school_data[i].info.zip + "<br>");
 				//console.log(school_data[i].before[0].white)
 			}).on('mouseout', function(e) {
@@ -440,11 +463,96 @@ function drawDetailMap() {
 				});
 				layer.bringToBack();
 				endHover();
-			}).addTo(map);
+			}).addTo($map);
+
+			$('#school-list > ul').append('<li class="listing" data-order="' + order + '" id="' + i + '"><h5 class="upper ral heavier black">' + school_data[i].info.name + '</h5></li>')
+			order++
 		}
 	});
 
+
+	$('.listing').click(function() {
+		if ( $(this).hasClass('active-listing') ) {
+			return false
+		}
+		$('.listing .inner').remove()
+		$('.listing').removeClass('active-listing');
+		$(this).addClass('active-listing');
+
+		i = $(this).attr('id')
+		zoomCoordinates = [school_data[i].info.lat, school_data[i].info.lon]
+		zoomDot.setLatLng(zoomCoordinates);
+		$map.setView(zoomCoordinates, 12)
+	
+	// CHECK FOR FIRST SET
+		if (school_data[i].before[0]) {
+			curr = []
+			curr[0] = [school_data[i].before[0].white, school_data[i].before[0].white / school_data[i].before[0].total]
+			curr[1] = [school_data[i].before[0].black, school_data[i].before[0].black / school_data[i].before[0].total]
+			curr[2] = [school_data[i].before[0].other, school_data[i].before[0].other / school_data[i].before[0].total]
+			curr[3] = [school_data[i].before[0].hispanic, school_data[i].before[0].hispanic / school_data[i].before[0].total]
+		}
+		else {
+
+		}
+
+	// CHECK FOR SECOND SET
+		if (school_data[i].after[0]) {
+			curr = []
+			curr[0] = [school_data[i].after[0].white, school_data[i].after[0].white / school_data[i].after[0].total]
+			curr[1] = [school_data[i].after[0].black, school_data[i].after[0].black / school_data[i].after[0].total]
+			curr[2] = [school_data[i].after[0].other, school_data[i].after[0].other / school_data[i].after[0].total]
+			curr[3] = [school_data[i].after[0].hispanic, school_data[i].after[0].hispanic / school_data[i].after[0].total]
+		}
+		else {
+
+		}
+		
+	$(this).append (
+		'<div class = "inner upper ral normal black">' 
+			+ school_data[i].info.address + '<br/>' 
+			+ school_data[i].info.city + ', ' + school_data[i].info.state + '&nbsp;' + school_data[i].info.zip 
+		+ '<section class = "breakdown">'
+		+ '</section>'
+		+ '</div>'
+	)
+
+	$('.active-listing')[0].scrollIntoView()
+	$('#school-list').scrollTop($('#school-list').scrollTop() - 33)
+	$(document).scrollTop($(document).scrollTop() - 120)
+
+	/*	curr = $(this)
+		offset = curr.position()
+		w = curr.find('.w-seg').data('q')
+		b = curr.find('.b-seg').data('q')
+		h = curr.find('.h-seg').data('q')
+		o = curr.find('.o-seg').data('q')
+		tot = w+b+h+o
+		$('#chart-box').css({
+			'top' : offset.top + 30 + 'px',
+			'left' : offset.left + ((curr.width()-$('#chart-box').outerWidth(true))/2) + 'px'
+		})
+		$('#c-y').text(curr.find('.r1').text())
+		$('#c-tt').html(curr.find('.r3').text() + ' students')
+		$('#w-p').text($.number(((w/tot)*100),1) + '%')
+		$('#w-c').text($.number(w))
+		$('#b-p').text($.number(((b/tot)*100),1) + '%')
+		$('#b-c').text($.number(b))
+		$('#h-p').text($.number(((h/tot)*100),1) + '%')
+		$('#h-c').text($.number(h))
+		$('#o-p').text($.number(((o/tot)*100),1) + '%')
+		$('#o-c').text($.number(o))
+	*/
+
+	})
+
 } // closes the draw function
+
+
+
+
+
+
 
 
 // find a way to work resize the svg in here, should be a d3.select(window).on('resize', resize);

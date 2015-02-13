@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:300,500,900">
 
-<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq) -->
+<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq, Underscore) -->
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
 <script type = "text/javascript" src="./js/bootstrap.min.js"></script>
@@ -89,15 +89,26 @@
 					<div id="g-stacked-bar-chart"></div>
 				</div>
 				<br>
-				<div id="interactive" class="g-component">
+				<div id="school-breakdown" class="g-component">
 					<h4 class="upper fat ral black">Demographics by each schools</h4>
 					<p class="small gray rob">Of the 36 schools in Charles County, 26 of them entered the '12-13 school year with non-Hispanic white students as a minority group.  Of those schools, only two (Smallwood Middle and Matula Elementary) had an African-American student population of less than 50%.  19 schools had at least five percent of their student body represented with Hispanic background entering that same school year, a stark contrast to only one (Middleton Elementary) in '02-03.<p>
 					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
-					<!-- leaflet map entered here -->
-					<div id="map-container"> </div>
-					<div id="map-hover-box" class="small ral"></div> <!-- empty div for the map popup box -->
+					<div>
+						<!-- leaflet map goes in here -->
+						<div id="map-container">
+							<div id="map"></div>
+						</div>
+	
+						<!-- school list goes in here-->
+						<div id="school-list-container">
+							<div id="school-list">
+								<ul></ul>
+							</div>
+						</div>
+					</div>
 				</div>
-				<br>
+				<br/><br/>
+				<div id="map-hover-box" class="small ral"></div> <!-- empty div for the map popup box -->
 				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a>
 				</p>
 			</div>	<!-- closes the center column-->
