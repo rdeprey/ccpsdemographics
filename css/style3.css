@@ -415,14 +415,39 @@ svg text {
 #school-list > ul > li:hover { 
 	background: #fff 
 }
-.active-listing { 
+.selected-school { 
 	background: #fff; 
 	display: block !important; 
 	cursor: default !important; 
 }
-.active-listing .inner { 
+.selected-school .inner { 
 	padding-bottom: 8px; 
 	font-size: 13px;
+}
+.selected-school h5 { 
+	margin-bottom: 1px;
+}
+.selected-school .inner table { 
+	width: 100%;
+}
+.selected-school .inner td { 
+	text-align: center;
+}
+.selected-school .inner td.white{ 
+	color: #98abc5;
+}
+.selected-school .inner td.black{ 
+	color: #8a89a6;
+}
+.selected-school .inner td.other{ 
+	color: #a05d56;
+}
+.selected-school .inner td.hispanic{ 
+	color: #ff8c00;
+}
+#notation {
+	max-width: 600px; 
+	margin: 0 auto;
 }
 /* Social Bookmark Icons */
 
@@ -454,12 +479,6 @@ svg text {
 }
 .social-bookmarks li a:hover {
 	background-position: 0 -40px!important;
-}
-.social-bookmarks li.facebook a {
-	background: url(../images/icons/facebook.png) no-repeat 0 0;
-}
-.social-bookmarks li.facebook a:hover {
-	background-color: #3b5998;
 }
 .social-bookmarks li.github a {
 	background: url(../images/icons/github.png) no-repeat 0 0;
@@ -569,6 +588,9 @@ svg text {
 	}
 	#school-list { 
 		height: 350px; 
+	}
+	.selected-school .inner { 
+		font-size: 10px;
 	}
     .carousel {
         position: absolute;

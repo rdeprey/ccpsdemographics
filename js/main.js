@@ -384,7 +384,7 @@ function drawDetailMap() {
 	}
 
 	// function to set position of hover box on map points
-	function getPos(event) {
+	function getPosition(event) {
 		posX = event.clientX;
 		posY = event.clientY;
 		$('#map-hover-box').css({
@@ -396,13 +396,13 @@ function drawDetailMap() {
 	// function to show hover box on hover of map points
 	function initHover() {
 		$('#map-hover-box').show();
-		$(document).bind('mousemove', getPos);
+		$(document).bind('mousemove', getPosition);
 	}
 
 	// function to hide hover box on hover of map points
 	function endHover() {
 		$('#map-hover-box').hide();
-		$(document).unbind('mousemove', getPos);
+		$(document).unbind('mousemove', getPosition);
 	}
 
 	// dummy dot to just create the variable
@@ -421,10 +421,10 @@ function drawDetailMap() {
 		fillOpacity: '0',
 		SVG: true,
 		VML: true,
-		radius: 12,
+		radius: 10,
 	}).addTo($map);
 
-	order = 0
+
 	$.each(school_data, function(i) {
 		if (school_data[i].info) {
 			$curr = new dot([school_data[i].info.lat, school_data[i].info.lon], {
@@ -465,19 +465,18 @@ function drawDetailMap() {
 				endHover();
 			}).addTo($map);
 
-			$('#school-list > ul').append('<li class="listing" data-order="' + order + '" id="' + i + '"><h5 class="upper ral heavier black">' + school_data[i].info.name + '</h5></li>')
-			order++
+			$('#school-list > ul').append('<li class="listing" id="' + i + '"><h5 class="upper ral heavier black">' + school_data[i].info.name + '</h5></li>')
 		}
 	});
 
 
 	$('.listing').click(function() {
-		if ( $(this).hasClass('active-listing') ) {
+		if ( $(this).hasClass('selected-school') ) {
 			return false
 		}
 		$('.listing .inner').remove()
-		$('.listing').removeClass('active-listing');
-		$(this).addClass('active-listing');
+		$('.listing').removeClass('selected-school');
+		$(this).addClass('selected-school');
 
 		i = $(this).attr('id')
 		zoomCoordinates = [school_data[i].info.lat, school_data[i].info.lon]
@@ -507,17 +506,53 @@ function drawDetailMap() {
 		else {
 
 		}
-		
+	
 	$(this).append (
 		'<div class = "inner upper ral normal black">' 
-			+ school_data[i].info.address + '<br/>' 
-			+ school_data[i].info.city + ', ' + school_data[i].info.state + '&nbsp;' + school_data[i].info.zip 
-		+ '<section class = "breakdown">'
-		+ '</section>'
+			+ school_data[i].info.address + ', ' + school_data[i].info.city + ', ' + school_data[i].info.state + '&nbsp;' + school_data[i].info.zip + '<br/>'
+				+ '<br/>'
+				+ '<table border-spacing = 2px>'
+					+ '<tr class = "heavier">'
+						+ '<td> Year </td> <td> White </td> <td> Black </td> <td> Other </td> <td> Hispanic </td> <td> Total </td>'
+					+ '</tr>'
+					+ '<tr>'
+						+ '<td>' + school_data[i].before[0].short_year + ' (#) </td>' 				
+						+ '<td class = "white"> ' + school_data[i].before[0].white + '</td>' 
+						+ '<td class = "black"> ' + school_data[i].before[0].black + '</td>' 
+						+ '<td class = "other"> ' + school_data[i].before[0].other + '</td>'
+						+ '<td class = "hispanic"> ' + school_data[i].before[0].hispanic + '</td>' 
+						+ '<td> ' + school_data[i].before[0].total + '</td>'
+					+ '</tr>'
+					+ '<tr>'
+						+ '<td>' + school_data[i].before[0].short_year + ' (%) </td>' 				
+						+ '<td class = "white"> ' + ((school_data[i].before[0].white / school_data[i].before[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td class = "black"> ' + ((school_data[i].before[0].black / school_data[i].before[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td class = "other"> ' + ((school_data[i].before[0].other / school_data[i].before[0].total) * 100).toFixed(2) + '% </td>'
+						+ '<td class = "hispanic"> ' + ((school_data[i].before[0].hispanic / school_data[i].before[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td> &nbsp; </td>'
+					+ '</tr>'
+					+ '<tr><td colspan=6>&nbsp;</td></tr>'
+					+ '<tr>'
+						+ '<td>' + school_data[i].after[0].short_year + ' (#) </td>' 				
+						+ '<td class = "white"> ' + school_data[i].after[0].white + '</td>' 
+						+ '<td class = "black"> ' + school_data[i].after[0].black + '</td>' 
+						+ '<td class = "other"> ' + school_data[i].after[0].other + '</td>'
+						+ '<td class = "hispanic"> ' + school_data[i].after[0].hispanic + '</td>' 
+						+ '<td> ' + school_data[i].after[0].total + '</td>'
+					+ '</tr>' 
+					+ '<tr>'
+						+ '<td>' + school_data[i].after[0].short_year + ' (%) </td>' 				
+						+ '<td class = "white"> ' + ((school_data[i].after[0].white / school_data[i].after[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td class = "black"> ' + ((school_data[i].after[0].black / school_data[i].after[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td class = "other"> ' + ((school_data[i].after[0].other / school_data[i].after[0].total) * 100).toFixed(2) + '% </td>'
+						+ '<td class = "hispanic"> ' + ((school_data[i].after[0].hispanic / school_data[i].after[0].total) * 100).toFixed(2) + '% </td>' 
+						+ '<td> &nbsp; </td>'
+					+ '</tr>'					
+				+ '</table>'			
 		+ '</div>'
 	)
 
-	$('.active-listing')[0].scrollIntoView()
+	$('.selected-school')[0].scrollIntoView()
 	$('#school-list').scrollTop($('#school-list').scrollTop() - 33)
 	$(document).scrollTop($(document).scrollTop() - 120)
 

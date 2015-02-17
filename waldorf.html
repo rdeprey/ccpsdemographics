@@ -6,7 +6,7 @@
 <title>Interactive graphic: the changing demographics of Charles County public schools</title>
 <meta name="author" content="Thomas Liu">
 <meta name="keywords" content="Charles, County, Maryland, Schools, Demographics">
-<meta name="copyright" content="&copy; 2014 Thomas Liu">
+<meta name="copyright" content="&copy; 2015 Thomas Liu">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="shortcut icon" href="./images/favicon.ico">
 
@@ -29,6 +29,17 @@
 <script type = "text/javascript" src="./js/d3.v3.min.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
 <script type = "text/javascript" src="./js/jLinq-3.0.1.js"></script>
+
+<!-- GOOGLE ANALYTICS 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58932775-1', 'auto');
+  ga('send', 'pageview');
+</script> -->
 </head>
 
 
@@ -81,7 +92,7 @@
 					<p class="rob">In light of an August 2014 <a href="http://www.cnn.com/2014/08/18/opinion/navarrette-majority-minority-students-public-schools/" target="_blank" title="Navarrette: Don't be afraid of America's changing demographics">CNN article</a> by <a href="https://twitter.com/RubenNavarrette" target="_blank">Ruben Navarrette</a> that speaks about America's changing demographics in public schools, the below is a study on the same topic within this Southern Maryland county.  The data visualization and short blurbs below will provide clarity on the breakdown at a county level and by each school.</p>
 				</div>
 				<br>
-				<div id="ccps-breakdown" class="g-component">
+				<div id="ccps-breakdown">
 					<h4 class="upper fat ral black">Demographics at the county level</h4>
 					<p class="small gray rob">The student body in Charles County public schools has seen an increase in minorities from the '02-03 school year to '11-12 school year and overall student enrollment has slightly increased within that ten year span. The African-American and Hispanic population has seen a 43% and 150% rise, respectively, in that period.  The white population, in that same time frame, has decreased 33% and had gradual decreases year over year.<p>
 					<p class="small black rob" style="text-align:center"> Hover over the chart to explore the overall demographics breakdown.</p>
@@ -89,7 +100,7 @@
 					<div id="g-stacked-bar-chart"></div>
 				</div>
 				<br>
-				<div id="school-breakdown" class="g-component">
+				<div id="school-breakdown">
 					<h4 class="upper fat ral black">Demographics by each schools</h4>
 					<p class="small gray rob">Of the 36 schools in Charles County, 26 of them entered the '12-13 school year with non-Hispanic white students as a minority group.  Of those schools, only two (Smallwood Middle and Matula Elementary) had an African-American student population of less than 50%.  19 schools had at least five percent of their student body represented with Hispanic background entering that same school year, a stark contrast to only one (Middleton Elementary) in '02-03.<p>
 					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
@@ -107,10 +118,12 @@
 						</div>
 					</div>
 				</div>
-				<br/><br/>
+				<br/>
 				<div id="map-hover-box" class="small ral"></div> <!-- empty div for the map popup box -->
-				<p style="max-width: 600px; margin: 0 auto;" class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a>
-				</p>
+				<div id="notation">
+					<p class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a>
+					</p>
+				</div>
 			</div>	<!-- closes the center column-->
 
 			<div class="col-xs-2 col-sm-1 col-mid-1 col-lg-2"></div> <!-- right column (empty for padding purposes) -->
@@ -127,7 +140,7 @@
 	<div class="footer">
 		<div class="navbar">
 			<div class="navbar-footer">
-				<p class="navbar-text">Copyright &copy; 2014 Thomas Liu </p>
+				<p class="navbar-text">Copyright &copy; 2015 Thomas Liu </p>
 			</div>
 			<div class="navbar-collapse collapse social-bookmarks">
 				<ul class="nav navbar-nav navbar-right">
