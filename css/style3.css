@@ -449,29 +449,30 @@ svg text {
 	max-width: 600px; 
 	margin: 0 auto;
 }
+
 /* Social Bookmark Icons */
 
 .social-bookmarks {
 	padding-top: 10px;
-	margin: 0!important;
-	list-style-type: none!important;
+	margin: 0;
+	list-style-type: none;
 }
 .social-bookmarks li{
-	float: left!important;
-	margin-right: 2px!important;
-	display: inline!important;
-	width: auto!important;
-	background-image: none !important;
+	float: left!;
+	margin-right: 2px;
+	display: inline;
+	width: auto;
+	background-image: none;
 }			
 .social-bookmarks li a {
 	-moz-transition: all 0.3s ease 0s;
-	display: block!important;
-	float: left!important;
-	height: 100%!important;
-	margin: 0!important;
-	width: 40px!important;
-	height: 40px!important;
-	text-indent: -9999px!important;
+	display: block;
+	float: left;
+	height: 100%;
+	margin: 0;
+	width: 40px;
+	height: 40px;
+	text-indent: -9999px;
 }
 .social-bookmarks li a {
 	background-position: 0 -40px!important;
@@ -592,18 +593,7 @@ svg text {
 	.selected-school .inner { 
 		font-size: 10px;
 	}
-    .carousel {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
-    }
-    .carousel-caption {
-        position: static;
-        top: 80px;
-        bottom: auto;
-        bottom: 0;
-        margin: 10px 10% 0;
-        height: auto;
+    .footer p{
+    	font-size: 12px;
     }
 }
