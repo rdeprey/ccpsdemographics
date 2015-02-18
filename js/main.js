@@ -251,7 +251,7 @@ function drawSummaryChart() {
 		});
 	}
 
-	// resize the svg if user resizes the browser window
+	// redraw the svg if user resizes the browser window
 	d3.select(window).on('resize', drawSummaryChart); 
 
 } // close the drawSummaryChart function	
@@ -273,36 +273,6 @@ function drawDetailMap() {
 	// sub function to get unique list of school and nest the before/after data
 	function reformat (array) {
 
-		var before = jLinq.from(array)
-			.equals("short_year", "02-03")
-			.select(
-				function(d){
-					return {
-						school_id: d.school_id,
-						short_year: d.short_year,
-						white: d.white,
-						black: d.black,
-						other: d.other,
-						hispanic: d.hispanic,
-						total: d.total
-					}
-				});
-
-		var after = jLinq.from(array)
-			.equals("short_year", "11-12")
-			.select(
-				function(d){
-					return {
-						school_id: d.school_id,
-						short_year: d.short_year,
-						white: d.white,
-						black: d.black,
-						other: d.other,
-						hispanic: d.hispanic,
-						total: d.total
-					}
-				});
-
 		var lookup = {};
 		var schools = [];
 
@@ -321,17 +291,36 @@ function drawDetailMap() {
 					zip: item.zip,
 					level: item.level,
 					lat: +item.latitude,
-					lon: +item.longitude,
-				}
+					lon: +item.longitude
+				},
+				before: [{
+					short_year: item.short_year,
+					white: item.white,
+					black: item.black,
+					other: item.other,
+					hispanic: item.hispanic,
+					total: item.total
+				}]
 				});
 			}
 		}
+
+		var after = jLinq.from(array)
+			.equals("short_year", "11-12")
+			.select(
+				function(d){
+					return {
+						school_id: d.school_id,
+						short_year: d.short_year,
+						white: d.white,
+						black: d.black,
+						other: d.other,
+						hispanic: d.hispanic,
+						total: d.total
+					}
+				});
+
   		var BeforeAfterDataSet = jlinq.from(schools)
-			.join(
-				before,
-				"before",
-				"school_id",
-				"school_id")
 			.join(
 				after,
 				"after",
@@ -350,8 +339,8 @@ function drawDetailMap() {
 	// Set the map's boundaries  
 	// SW 37.2304,-80.429 (Blacksburg) ; NE 40.217,-74.774 (Trenton) ; C 38.527515, -76.971666 (La Plata)
 
-	var southWest = new L.LatLng(37.2304,-80.429),
-		northEast = new L.LatLng(40.217,-74.774),
+	var southWest = new L.LatLng(37.2304, -80.429),
+		northEast = new L.LatLng(40.217, -74.774),
 		bounds = new L.LatLngBounds(southWest, northEast);
 
 	var minZ = 9,
