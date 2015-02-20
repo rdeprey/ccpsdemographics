@@ -39,7 +39,7 @@ function drawSummaryChart() {
 
 	//var browserwidth = d3.select("#g-stacked-bar-chart").node().clientWidth,
 	var	browserwidth = parseInt(d3.select('#g-stacked-bar-chart').style('width'), 10),
-		height = 420 - margin.top - margin.bottom;
+		height = 400 - margin.top - margin.bottom;
 
 	if ($(window).width() < mobiledefaultwidth) {
 		var width = browserwidth;
@@ -188,7 +188,7 @@ function drawSummaryChart() {
 		.append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", -50)
-			.attr("dx","-20em")
+			.attr("dx","-19em")
 			.attr("dy", ".71em")
 			.style("text-anchor", "middle")
 			.text("Student Population (#)");
@@ -270,7 +270,7 @@ function drawSummaryChart() {
 
 function drawDetailMap() {
 
-	// sub function to get unique list of school and nest the before/after data
+	// sub function to get unique list of school and the first record for each school (before array)
 	function reformat (array) {
 
 		var lookup = {};
@@ -306,7 +306,7 @@ function drawDetailMap() {
 		}
 
 		var after = jLinq.from(array)
-			.equals("short_year", "11-12")
+			.equals("short_year", "14-15")
 			.select(
 				function(d){
 					return {
@@ -329,8 +329,7 @@ function drawDetailMap() {
 			.select();
 
 			return BeforeAfterDataSet;
-
- 	} // closes reformat function
+ 	} 
 
  	// run the reformat function on the raw data to transform data for the leaflet part
  	var school_data = reformat(raw_data);
@@ -427,7 +426,7 @@ function drawDetailMap() {
 		radius: 10,
 	}).addTo($map);
 
-
+	// place a dot on the map and add an item in the list for each school in the school_data var, include tooltip and jQuery triggers
 	$.each(school_data, function(i) {
 		if (school_data[i].info) {
 			$school = new dot([school_data[i].info.lat, school_data[i].info.lon], {
@@ -471,7 +470,7 @@ function drawDetailMap() {
 		}
 	});
 
-
+	// display before/after data on the school when a dot is clicked or the school on the list is clicked
 	$('.school-listing').click(function() {
 		if ( $(this).hasClass('selected-school') ) {
 			return false
@@ -484,31 +483,6 @@ function drawDetailMap() {
 		zoomCoordinates = [school_data[i].info.lat, school_data[i].info.lon]
 		zoomDot.setLatLng(zoomCoordinates);
 		$map.setView(zoomCoordinates, 12)
-	
-
-		// CHECK FOR FIRST SET
-		if (school_data[i].before[0]) {
-			curr = []
-			curr[0] = [school_data[i].before[0].white, school_data[i].before[0].white / school_data[i].before[0].total]
-			curr[1] = [school_data[i].before[0].black, school_data[i].before[0].black / school_data[i].before[0].total]
-			curr[2] = [school_data[i].before[0].other, school_data[i].before[0].other / school_data[i].before[0].total]
-			curr[3] = [school_data[i].before[0].hispanic, school_data[i].before[0].hispanic / school_data[i].before[0].total]
-		}
-		else {
-
-		}
-
-		// CHECK FOR SECOND SET
-		if (school_data[i].after[0]) {
-			curr = []
-			curr[0] = [school_data[i].after[0].white, school_data[i].after[0].white / school_data[i].after[0].total]
-			curr[1] = [school_data[i].after[0].black, school_data[i].after[0].black / school_data[i].after[0].total]
-			curr[2] = [school_data[i].after[0].other, school_data[i].after[0].other / school_data[i].after[0].total]
-			curr[3] = [school_data[i].after[0].hispanic, school_data[i].after[0].hispanic / school_data[i].after[0].total]
-		}
-		else {
-
-		}
 	
 		$(this).append (
 			'<div class = "inner upper ral normal black">' 

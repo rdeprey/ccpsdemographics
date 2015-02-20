@@ -544,6 +544,27 @@ svg text {
     	font-size: 10px;
   	}
 }
+@media only screen and (max-width: 900px){
+ 	.summary-tooltip { 
+		width: 150px;
+	} 
+	.tipsy-inner { 
+		border-width: medium;
+		padding: 8px;
+	}
+  	.tip1 {
+		font-size: 9pt;
+	}
+	.tip3 {
+		font-size: 9pt;
+	}
+	svg text {
+		font-size: 10px;
+	}
+	.legend {
+    	font-size: 9px;
+  	}
+}
 
 @media only screen and (max-width: 768px){
 	.about-box {
@@ -584,11 +605,11 @@ svg text {
 	}
 	#school-list-container { 
 		width: 100%; 
-		height: 350px; 
+		height: 360px; 
 		float: none !important
 	}
 	#school-list { 
-		height: 350px; 
+		height: 360px; 
 	}
 	.selected-school .inner { 
 		font-size: 10px;
