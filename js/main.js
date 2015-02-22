@@ -101,8 +101,8 @@ function drawSummaryChart() {
 	// by year, get the sum and map each race to a block of color
 	data.forEach(function(d) {
 		var y0 = 0;
-		var max = d.white + d.black + d.other + d.hispanic
-		d.group = color.domain().map(function(name) { return {year: d.year, name: name, max: max, y0: y0, y1: y0 += +d[name]}; });
+		var summarymax = d.white + d.black + d.other + d.hispanic
+		d.group = color.domain().map(function(name) { return {year: d.year, name: name, summarymax: summarymax, y0: y0, y1: y0 += +d[name]}; });
 		d.total = d.group[d.group.length - 1].y1;
 	});
 
@@ -131,11 +131,11 @@ function drawSummaryChart() {
 			// added a span class to fix the width of the tooltip and made it an inline-block (css)
 			var tip = '<span class="summary-tooltip">' 
 				+ '<p class="tip3"> School Year: ' + d.year + '</p>'
-				+ '<p class="tip3"> Student Body #: ' + d.max + '</p>'
+				+ '<p class="tip3"> Student Body #: ' + d.summarymax + '</p>'
 				+ '<p class="tip3"> -------------------------- </p>'
 				+ '<p class="tip3"> Race/Ethnicity: <span style="color:' + c + '"> ' + d.name + '</p>' 
 				+ '<p class="tip1"> # of Students: <span style="color:' + c + '"> ' + d3.format(",")(d.value ? d.value: d.y1 - d.y0) + '</p>'
-				+ '<p class="tip1"> % of Students: <span style="color:' + c + '"> ' + d3.format(".2%")(d.value ? d.value: (d.y1 - d.y0)/d.max) + '</p>'
+				+ '<p class="tip1"> % of Students: <span style="color:' + c + '"> ' + d3.format(".2%")(d.value ? d.value: (d.y1 - d.y0)/d.summarymax) + '</p>'
 				+ '</span>'
 				return tip;
 			});

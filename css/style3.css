@@ -158,6 +158,7 @@ html, body {
 	text-decoration: none;
 } 
 .about-close {
+	cursor: pointer;
     display: block;
     position: absolute;
     right: 18px;
@@ -445,7 +446,7 @@ svg text {
 .selected-school .inner td.hispanic{ 
 	color: #ff8c00;
 }
-#notation {
+#school-breakdown-notation {
 	max-width: 600px; 
 	margin: 0 auto;
 }

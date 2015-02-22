@@ -21,26 +21,14 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:300,500,900">
 
-<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq, Lo-Dash) -->
+<!-- IMPORT SCRIPTS (jQuery, Bootstrap, d3, tipsy, Leaflet, jLinq) -->
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
 <script type = "text/javascript" src="./js/bootstrap.min.js"></script>
 <script type = "text/javascript" src="./js/leaflet.js" charset ="utf-8"></script>
 <script type = "text/javascript" src="./js/d3.v3.min.js" charset ="utf-8"></script>
-<script type = "text/javascript" src="./js/jquery.tipsy.js"></script>
-<script type = "text/javascript" src="./js/lodash.js"></script>
+<script type = "text/javascript" src="./js/jquery.tipsy.js"></script>\
 <script type = "text/javascript" src="./js/jLinq-3.0.1.js"></script>
-
-<!-- GOOGLE ANALYTICS 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-58932775-1', 'auto');
-  ga('send', 'pageview');
-</script> -->
 </head>
 
 
@@ -62,7 +50,7 @@
 
 <!-- content for the about box -->
 <div class="about-box">
-	<div class="about-close" style="cursor: pointer;">x</div>
+	<div class="about-close">x</div>
 	<div class="about-content black">
 		You can contribute to this single page website by mentioning it on social media using hashtag <u>#ccpsdemographics</u> or improve it on <a href="https://github.com/t-liu" target="_blank">GitHub</a> if you are a developer. 
 		<br><br>
@@ -95,7 +83,7 @@
 				<br>
 				<div id="ccps-breakdown">
 					<h4 class="upper fat ral black">Demographics at the county level</h4>
-					<p class="small gray rob">The student body in Charles County public schools has seen an increase in minorities from the '05-06 school year to '14-15 school year and overall student enrollment has slightly decreased within that ten year span. The African-American and Hispanic population has seen a 15% and 110% rise, respectively, in that period.  The white population, in that same time frame, has decreased 36% and had gradual decreases year over year.</p>
+					<p class="small gray rob">The student body in Charles County public schools has seen an increase in minorities from the 2005-2006 school year to 2014-2015 school year and overall student enrollment has slightly decreased within that ten year span. The African-American and Hispanic population has seen a 15% and 110% rise, respectively, in that period.  The white population, in that same time frame, has decreased 36% and had gradual decreases year over year.</p>
 					<p class="small black rob" style="text-align:center"> Hover over the chart to explore the overall demographics breakdown.</p>
 					<!-- d3 graph entered here -->
 					<div id="g-stacked-bar-chart"></div>
@@ -103,8 +91,7 @@
 				<br>
 				<div id="school-breakdown">
 					<h4 class="upper fat ral black">Demographics by each schools</h4>
-					<p class="small gray rob">Due to five new schools that were added after the '05-06 school year (North Point High, William A. Diggs Elementary, Theodore G. Davis, Mary B. Neal Elementary, and St. Charles High), student body count for several schools within their proximity has dropped as of late.  Of the 36 schools in Charles County, 25 of them entered the '14-15 school year with non-Hispanic white students as a minority group.  Of those 26 schools, two of them had an African-American student population less than 50%. 12 schools had at least eight percent of their student body represented with Hispanic background entering that same school year.</p>
-					<!-- <p class="small gray rob">Of the 36 schools in Charles County, 25 of them entered the '12-13 school year with non-Hispanic white students as a minority group.  Of those schools, none of them had an African-American student population of less than 50%.  19 schools had at least five percent of their student body represented with Hispanic background entering that same school year, a stark contrast to five in '03-04.</p> -->
+					<p class="small gray rob">Due to five new schools that were added after the 2005-2006 school year (North Point High, William A. Diggs Elementary, Theodore G. Davis, Mary B. Neal Elementary, and St. Charles High), student body count for several schools within their proximity has dropped in recent years.  Of the 36 schools in Charles County, 25 of them entered the 2014-2015 school year with non-Hispanic white students as a minority group.  Of those 25 schools, two of them had an African-American student population less than 50%. 12 schools had at least eight percent of their student body represented with Hispanic background entering that same school year.</p>
 					<p class="small black rob" style="text-align:center"> Use this interactive map to explore the demographics of each school.</p>
 					<div>
 						<!-- leaflet map goes in here -->
@@ -121,8 +108,8 @@
 					</div>
 				</div>
 				<br>
-				<div id="notation">
-					<p class="gray small rob"><span class="upper fat ral small">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Public School System</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students.<span class="upper fat ral small"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a>
+				<div id="school-breakdown-notation">
+					<p class="gray small rob"><span class="upper fat ral">Note: </span>This analysis includes schools and programs listed under the <a href = "http://www.ccboe.com/" target="_blank">Charles County Board of Education</a>. "Other" in the analysis includes the following: American Indian/Alaska Natives, Asian or Asian/Pacific Islanders, Hawaiian Native/Pacific Islanders, and Multi-racial students (data prior to 2010-2011 were not applicable to a few of the race/ethnicity listed above). <span class="upper fat ral"> Sources: </span><a href = "http://nces.ed.gov/" target="_blank">National Center for Education Statistics</a> and <a href = "http://www.ccboe.com/aboutus/fastfacts.php" target = "_blank">Charles County Public School System.</a>
 					</p>
 				</div>
 				<div id="map-hover-box" class="small ral"></div> <!-- empty div for the map popup box -->
